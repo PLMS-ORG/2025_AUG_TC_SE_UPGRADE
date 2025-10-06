@@ -1,0 +1,7 @@
+TC_MODE=yes
+TEMPLATE_PUBLISH_FOLDER="C:\3DE\ADMIN"
+CUSTOM_SHEET_NAME="Input_Data"
+ITEM_TYPE=Ltc4_Item
+ITEM_REVISION_TYPE=Ltc4_ItemRevision
+CTD_TREEFILE="\\aep1-pdmsrv01.ae.ltc.local\Teamcenter\SEAssembly_IR.txt"
+SEEC_URL="VM=corbalociiop:localhost:9996/localserver~Production=http://10.1.39.15:80/tc1"

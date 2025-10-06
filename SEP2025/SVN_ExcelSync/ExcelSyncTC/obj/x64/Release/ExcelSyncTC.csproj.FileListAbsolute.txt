@@ -1,0 +1,16 @@
+D:\Github_desktop\LTCme\TC14_SE2023\SVN_ExcelSync\ExcelSyncTC\obj\x64\Release\ExcelSyncTC.csproj.AssemblyReference.cache
+D:\Github_desktop\LTCme\TC14_SE2023\SVN_ExcelSync\ExcelSyncTC\obj\x64\Release\ExcelSyncTC.ExcelSyncDialog.resources
+D:\Github_desktop\LTCme\TC14_SE2023\SVN_ExcelSync\ExcelSyncTC\obj\x64\Release\ExcelSyncTC.MyCustomDialog.resources
+D:\Github_desktop\LTCme\TC14_SE2023\SVN_ExcelSync\ExcelSyncTC\obj\x64\Release\ExcelSyncTC.Properties.Resources.resources
+D:\Github_desktop\LTCme\TC14_SE2023\SVN_ExcelSync\ExcelSyncTC\obj\x64\Release\ExcelSyncTC.Ribbon1.resources
+D:\Github_desktop\LTCme\TC14_SE2023\SVN_ExcelSync\ExcelSyncTC\obj\x64\Release\ExcelSyncTC.SyncDwg.resources
+D:\Github_desktop\LTCme\TC14_SE2023\SVN_ExcelSync\ExcelSyncTC\obj\x64\Release\ExcelSyncTC.csproj.GenerateResource.cache
+D:\Github_desktop\LTCme\TC14_SE2023\SVN_ExcelSync\ExcelSyncTC\obj\x64\Release\ExcelSyncTC.csproj.CoreCompileInputs.cache
+D:\W\LTCme\TC14_SE2023\SVN_ExcelSync\ExcelSyncTC\obj\x64\Release\ExcelSyncTC.csproj.AssemblyReference.cache
+D:\W\LTCme\TC14_SE2023\SVN_ExcelSync\ExcelSyncTC\obj\x64\Release\ExcelSyncTC.ExcelSyncDialog.resources
+D:\W\LTCme\TC14_SE2023\SVN_ExcelSync\ExcelSyncTC\obj\x64\Release\ExcelSyncTC.MyCustomDialog.resources
+D:\W\LTCme\TC14_SE2023\SVN_ExcelSync\ExcelSyncTC\obj\x64\Release\ExcelSyncTC.Properties.Resources.resources
+D:\W\LTCme\TC14_SE2023\SVN_ExcelSync\ExcelSyncTC\obj\x64\Release\ExcelSyncTC.Ribbon1.resources
+D:\W\LTCme\TC14_SE2023\SVN_ExcelSync\ExcelSyncTC\obj\x64\Release\ExcelSyncTC.SyncDwg.resources
+D:\W\LTCme\TC14_SE2023\SVN_ExcelSync\ExcelSyncTC\obj\x64\Release\ExcelSyncTC.csproj.GenerateResource.cache
+D:\W\LTCme\TC14_SE2023\SVN_ExcelSync\ExcelSyncTC\obj\x64\Release\ExcelSyncTC.csproj.CoreCompileInputs.cache

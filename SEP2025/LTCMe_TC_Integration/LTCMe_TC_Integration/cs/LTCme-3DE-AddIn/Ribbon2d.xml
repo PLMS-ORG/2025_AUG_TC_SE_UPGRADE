@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!--
+	To enable XML intellisense, use package manager console command: Install-SolidEdgeAddInRibbonSchema
+  This command adds\updates Ribbon.xsd in your project.
+  https://github.com/SolidEdgeCommunity/SolidEdge.Community/wiki/Package-Manager-Console-Powershell-Reference#install-solidedgeaddinribbonschema
+  Note: imageId is defined in AssemblyInfo.[cs|vb]
+-->
+<ribbon xmlns="http://github.com/SolidEdgeCommunity/SolidEdge/Ribbon">
+
+  
+  <tab name="Admin_TC">
+    <group name="AdminGroup_TC">
+      <button id="0" size="large" label="TVS" screentip="Template Variable Selection" supertip="Template Variable Selection" imageId="120" enabled="true" />
+      <button id="1" size="large" label="CTE" screentip=" Custom Template Edit" supertip="Custom Template Edit" imageId="122" enabled="true" />
+      <button id="2" size="large" label="Sanitize" screentip="Sanitize XL (Post Upload to TC)" supertip="Sanitize XL (Post Upload to TC)" imageId="121" enabled="true" />
+      <!--  <button id="3" size="large" label="Login-Admin" screentip="Login for Admins" supertip="Login for admins" imageId="128" enabled="true" /> -->
+    </group>
+  </tab>
+
+  
+  <tab name ="Designer_TC" >    
+  <group name="DesignerGroup_TC">
+      <button id="4" size="normal" label="Open Template" screentip="Open Template Excel" supertip="Open Template Excel" imageId="123" enabled="true" />      
+      <button id="5" size="normal" label="Sync TE" screentip="Sync Template Excel" supertip="Sync Template Excel" imageId="124" enabled="true" />      
+      <button id="6" size="normal" label="Sanitize" screentip="Sanitize XL (Post Clone)" supertip="Sanitize XL (Post Clone)" imageId="125" enabled="true" />
+      <button id="7" size="normal" label="CTD" screentip="Custom Template Derivative" supertip="Custom Template Derivative" imageId="127" enabled="true" />
+    <!--    <button id="8" size="normal" label="Login-Designer" screentip="Login for Designers" supertip="Login for Designers" imageId="129" enabled="true" /> -->
+    <!--   <button id="9" size="normal" label="Check Out Excel" screentip="Check Out Excel Template" supertip="Check Out Excel Template" imageId="130" enabled="true" /> -->
+      <button id="10" size="normal" label="Check In Excel" screentip="Check In Excel Template" supertip="Check In Excel Template" imageId="131" enabled="true" />
+    <!--  <button id="11" size="normal" label="Test Connection" screentip="Test the SE TC Object" supertip="Test the SE TC Object" imageId="121" enabled="true" /> -->
+    </group>
+  </tab>
+</ribbon>

@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!--
+	To enable XML intellisense, use package manager console command: Install-SolidEdgeAddInRibbonSchema
+  This command adds\updates Ribbon.xsd in your project.
+  https://github.com/SolidEdgeCommunity/SolidEdge.Community/wiki/Package-Manager-Console-Powershell-Reference#install-solidedgeaddinribbonschema
+-->
+<ribbon xmlns="http://github.com/SolidEdgeCommunity/SolidEdge/Ribbon">
+  <tab name="LTCme-Designer">    
+      <group name="Designer">
+        <button id="3" size="large" label="Open-Template-Excel" screentip="Open Template Excel" supertip="Open Template Excel" imageId="114" />
+        <button id="4" size="large" label="Sync-Template-Excel" screentip="Sync Template Excel" supertip="Sync Template Excel" imageId="115"/>
+        <button id="5" size="large" label="DPL" screentip="Duplicate" supertip="Duplicate" imageId="116" />
+      </group>    
+  </tab>  
+</ribbon>

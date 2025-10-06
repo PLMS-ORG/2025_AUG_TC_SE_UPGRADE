@@ -1,0 +1,6 @@
+C:\Users\infodba\Documents\Visual Studio 2012\Projects\SVN_ExcelSync\ExcelSync\obj\x64\Debug\ExcelSync.ExcelSyncDialog.resources
+C:\Users\infodba\Documents\Visual Studio 2012\Projects\SVN_ExcelSync\ExcelSync\obj\x64\Debug\ExcelSync.MyCustomDialog.resources
+C:\Users\infodba\Documents\Visual Studio 2012\Projects\SVN_ExcelSync\ExcelSync\obj\x64\Debug\ExcelSync.Properties.Resources.resources
+C:\Users\infodba\Documents\Visual Studio 2012\Projects\SVN_ExcelSync\ExcelSync\obj\x64\Debug\ExcelSync.Ribbon1.resources
+C:\Users\infodba\Documents\Visual Studio 2012\Projects\SVN_ExcelSync\ExcelSync\obj\x64\Debug\ExcelSync.SyncDwg.resources
+C:\Users\infodba\Documents\Visual Studio 2012\Projects\SVN_ExcelSync\ExcelSync\obj\x64\Debug\ExcelSync.csproj.GenerateResource.Cache

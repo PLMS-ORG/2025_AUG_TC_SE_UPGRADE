@@ -1,0 +1,9 @@
+D:\Projects\LTC-1 - Copy\cs\EmbedNativeResources\bin\Release\EmbedNativeResources.exe
+D:\Projects\LTC-1 - Copy\cs\EmbedNativeResources\bin\Release\EmbedNativeResources.pdb
+D:\Projects\LTC-1 - Copy\cs\EmbedNativeResources\obj\Release\EmbedNativeResources.csprojResolveAssemblyReference.cache
+D:\Projects\LTC-1 - Copy\cs\EmbedNativeResources\obj\Release\EmbedNativeResources.exe
+D:\Projects\LTC-1 - Copy\cs\EmbedNativeResources\obj\Release\EmbedNativeResources.pdb
+D:\Projects\LTC-1\cs\EmbedNativeResources\bin\Release\EmbedNativeResources.exe
+D:\Projects\LTC-1\cs\EmbedNativeResources\bin\Release\EmbedNativeResources.pdb
+D:\Projects\LTC-1\cs\EmbedNativeResources\obj\Release\EmbedNativeResources.exe
+D:\Projects\LTC-1\cs\EmbedNativeResources\obj\Release\EmbedNativeResources.pdb

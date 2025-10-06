@@ -1,0 +1,50 @@
+﻿Release Notes:
+
+===================
+20-03-2024: 3.0.0.1
+===================
+
+1. Sync 2D will update the Drawing Parts List.
+2. Drawing View Auto Scaling is already Part of this Release.
+3. TC14 + Solid Edge 2023 Support is already part of this Release.
+4. Derivative XL is not getting Uploaded to TC, This Issue is now FIXED in TCAdaptor.cs - Function Name=AttachFileToDataset
+
+
+===================
+08-04-2024
+===================
+1.checkout excel option removed and excel is checkout when open excel is called
+2.Allow group role changes after logged in via customization
+
+===================
+10-10-2024
+===================
+
+1. Auto SCALE computation for each drawing view when the Sync 2D button is CLICKED
+2. Ignore variables during Sync 3D, if the AddVarToTemplate Flag is FALSE.
+3. Group / Role change cannot be done after the login, but user can login with a different Group and role once after Solid Edge is opened.
+4. Sync 3D must ignore, not remove and do nothing on parts/assemblies that are not present in Excel Template “MASTER ASSEMBLY” sheet
+5. Sync 3D must ignore, not suppress and do nothing on features that are not present in Excel Template “FEATURES” sheet
+
+===================
+26-11-2024: 3.0.0.3 
+===================
+
+1. Designer_TC Tab: Open Template XL - open the XL from TC will use SEEC API and not SOA.
+2. Designer_TC Tab: Check In - This button is now removed.
+3. Designer_TC Tab: Check Out - This button is now removed.
+4. Designer_TC Tab: Sync TE - upload the XL back to TC using SEEC API after all activities of Sync are completed.
+5. Designer_TC Tab: Sync TE - The logic initially will download the Template XL from TC using SEEC API.
+6. Designer_TC Tab: Login to TC - Designer - Removed. User will henceforth use OOTB login to TC
+7. Designer_TC Tab: CTD: 
+
+1. Admin_Tab: CTE: download existing XL from TC using SEEC instead of SOA.
+2. Admin_Tab: TVS: upload XL back to TC using SEEC and not using SOA.
+3. Admin_Tab: TVS: Suffix Property Update in TC using SOA is henceforth commented.
+4. Admin_Tab: CTE: upload XL back to TC using SEEC and not using SOA.
+5. Admin_Tab: CTE: Suffix Property Update in TC using SOA is henceforth commented. 
+6. Admin_Tab: TVS: check excel in TC is done through SEEC and not through SOA API. If XL exists, TVS does not run if an excel is already there in TC.
+7. Admin_Tab: Login to TC - Admin - Removed. User will henceforth use OOTB login to TC
+
+1. Restriction of Admin Functionalities for Role = DBA is now removed. User with any role can execute Admin buttons.
+2. Restriction of Designer functionalities for Role = Designer is now remoevd. User with any role can execute the Designer buttons.

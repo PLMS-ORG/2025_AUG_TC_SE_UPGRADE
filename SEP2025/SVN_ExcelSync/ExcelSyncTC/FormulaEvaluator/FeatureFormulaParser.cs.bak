@@ -1,0 +1,239 @@
+﻿using ExcelSync.model;
+using ExcelSync.utils;
+using NCalc;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Text;
+
+namespace ExcelSync.FormulaEvaluator
+{
+    public class FeatureFormulaParser
+    {        
+
+        //
+        public static List<FeatureLine> validateFeatureFormula(List<Variable> variablesList, List<FeatureLine> featuresList, String logFilePath)
+        {
+            Dictionary<String, List<Variable>> variableDictionaryDetails = Utlity.BuildVariableDictionary(variablesList, logFilePath);
+
+            if (variableDictionaryDetails == null || variableDictionaryDetails.Count == 0)
+            {
+                Utlity.Log("variableDictionaryDetails is Empty ", logFilePath);
+                return null ;
+            }
+
+            if (featuresList == null || featuresList.Count == 0)
+            {
+                Utlity.Log("featuresList is Empty ", logFilePath);
+                return null;
+            }
+
+            foreach (FeatureLine fl in featuresList)
+            {
+                String formula = fl.Formula;
+                String featureName = fl.FeatureName;
+                String partName = fl.PartName;
+                if (formula == null || formula.Equals("") == true)
+                {
+                    Utlity.Log("No Formula for: " + featureName, logFilePath);
+                    continue;
+                }
+
+                // Extract parameters from Formula
+                List<object> parametersList = null;
+                parametersList = ExtractParameters(formula, logFilePath);
+                List<String> parametersValueList = new List<string>();
+                foreach (object o in parametersList)
+                {
+                    String variableName = (String)o;
+                    String value = getParameterValueFromVariableDictionary(partName, variableName, variableDictionaryDetails, logFilePath);
+
+                    Utlity.Log("partName: " + partName, logFilePath);
+                    Utlity.Log("featureName: " + featureName, logFilePath);
+                    Utlity.Log("variableName: " + variableName, logFilePath);
+                    
+                    if (value != null && value.Equals("") == false)
+                    {
+                        String[] splitValueArr = value.Split(null);
+                        if (splitValueArr != null && splitValueArr.Length != 0)
+                        {
+                            value = splitValueArr[0];
+                            parametersValueList.Add(value);
+                        }
+                        else
+                        {
+                            parametersValueList.Add("");
+                        }
+                        
+                    }
+                    else
+                    {
+                        parametersValueList.Add("");
+                    }
+                    Utlity.Log("Parameter Value: " + value, logFilePath);
+                }
+
+                bool result = EvaluateFeatureFormula(parametersList, parametersValueList, formula, logFilePath);
+
+                if (result == true)
+                {
+                    fl.IsFeatureEnabled = "Y";
+                }
+                else
+                {
+                    fl.IsFeatureEnabled = "N";
+                }
+                Utlity.Log("fl.IsFeatureEnabled: " + fl.IsFeatureEnabled, logFilePath);
+
+            }
+
+            return featuresList;
+        }
+        // Use NCALC to Evaluate Formula
+        private static bool EvaluateFeatureFormula(List<object> parametersList, List<string> parametersValueList, string formula,String logfilePath)
+        {
+            bool result = false;
+            try
+            {
+                if (parametersList.Count != parametersValueList.Count) 
+                {
+                    Utlity.Log("parametersList & parametersValueList are not Equal: ", logfilePath);
+                    return result;
+                }
+
+                Expression e2 = new Expression(formula);
+                Utlity.Log("formula: " + formula, logfilePath);
+                for (int i = 0; i< parametersList.Count; i++)
+                {
+                    String parameter = (String)parametersList[i];
+                    String parameterValue = (String)parametersValueList[i];
+                    //int parameterV = convertValueToInteger(parameterValue, logfilePath);
+                    double parameterD = convertValueToDouble(parameterValue.ToString(), logfilePath);
+                    e2.Parameters[parameter] = parameterD;
+                    Utlity.Log("parameter: " + parameter, logfilePath);
+                    Utlity.Log("parameterV: " + parameterD, logfilePath);
+                }
+
+                result = (bool)e2.Evaluate();
+                Utlity.Log("result: " + result, logfilePath);
+            }
+            catch (Exception ex)
+            {
+                Utlity.Log("EvaluateFeatureFormula: " + ex.Message, logfilePath);
+                Utlity.Log("EvaluateFeatureFormula: " + ex.StackTrace, logfilePath);
+                return result;
+            }
+
+            return result;
+        }
+
+        private static double convertValueToDouble(string parameterValue,String logFilePath)
+        {
+            double d = 0;
+
+            try
+            {
+                Utlity.Log("EvaluateFeatureFormula: " + parameterValue, logFilePath);
+                d=Convert.ToDouble(parameterValue);
+                Utlity.Log("EvaluateFeatureFormula: " + d, logFilePath);
+            }
+            catch (Exception ex)
+            {
+                Utlity.Log("EvaluateFeatureFormula: " + ex.Message, logFilePath);
+                return d;
+            }
+
+
+            return d;
+        }
+
+        private static int convertValueToInteger(string parameterValue,String logFilePath)
+        {
+            int i = 0;
+
+            try
+            {
+                Utlity.Log("EvaluateFeatureFormula: " + parameterValue, logFilePath);
+                i=Convert.ToInt32(Convert.ToDouble(parameterValue));
+                Utlity.Log("EvaluateFeatureFormula: " + i, logFilePath);
+            }
+            catch (Exception ex)
+            {
+                Utlity.Log("EvaluateFeatureFormula: " + ex.Message, logFilePath);
+                return i;
+            }
+
+
+            return i;
+        }
+
+
+        // Use NCALC to extract Parameters
+        private static List<object> ExtractParameters(String formula, String logFilePath)
+        {
+            List<object> ParameterList = new List<object>();
+
+            try
+            {
+                var expression = NCalc.Expression.Compile(formula, true);
+                ParameterExtractionVisitor visitor = new ParameterExtractionVisitor();
+                expression.Accept(visitor);
+                var extractedParameters = visitor.Parameters;
+                foreach (var param in extractedParameters)
+                {
+                    //Utlity.Log(param, logFilePath);
+                    ParameterList.Add(param);
+                }
+            }
+            catch (Exception ex)
+            {
+                Utlity.Log("ExtractParameters: " + ex.Message, logFilePath);
+                Utlity.Log("ExtractParameters: " + ex.StackTrace, logFilePath);
+                return null;
+
+            }
+
+            return ParameterList;
+            
+        }
+
+
+        public static String getParameterValueFromVariableDictionary(String partName, String variableName, Dictionary<String, List<Variable>> variableDictionaryDetails, String logFilePath)
+        {
+            String value = "";
+            if (variableDictionaryDetails == null || variableDictionaryDetails.Count == 0)
+            {
+                Utlity.Log("variableDictionaryDetails is Empty ", logFilePath);
+                return value;
+            }
+
+            List<Variable> variablesList = null;
+            bool Success = variableDictionaryDetails.TryGetValue(partName, out variablesList);
+            if (Success == true && variablesList != null && variablesList.Count > 0)
+            {
+                foreach (Variable varr in variablesList)
+                {
+                    if (varr.PartName == null)
+                    {
+                        continue;
+                    }
+
+                    if (varr.PartName.Equals(partName, StringComparison.OrdinalIgnoreCase) == true)
+                    {
+                        if (varr.name.Equals(variableName, StringComparison.OrdinalIgnoreCase) == true)
+                        {
+                            value = varr.value;
+                            break;
+                        }
+                    }
+                }
+
+            }
+
+            return value;
+
+        }
+
+    }
+}

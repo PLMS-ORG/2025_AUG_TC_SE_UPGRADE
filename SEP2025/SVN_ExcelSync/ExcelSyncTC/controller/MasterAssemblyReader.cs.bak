@@ -1,0 +1,131 @@
+﻿using ExcelSync.utils;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
+
+namespace ExcelSync.controller
+{
+    class MasterAssemblyReader
+    {
+
+        public static List<String> componentList = new List<String>();
+
+        public static List<String> getComponents()
+        {
+            return componentList;
+        }
+
+        // Read the Master Assembly to Collect the Components that Needs to be Added/Removed
+        public static void ReadMasterAssemblySheet(Microsoft.Office.Interop.Excel.Application xlApp, Microsoft.Office.Interop.Excel.Workbook xlWorkbook, String logFilePath)
+        {
+            componentList.Clear();
+            //Utlity.Log("----------------------------------------------------------", logFilePath);
+            if (xlApp == null)
+            {
+                Utlity.Log("xlApp is NULL", logFilePath);
+                return;
+
+            }           
+            if (xlWorkbook == null)
+            {
+                Utlity.Log("xlWorkBook is NULL", logFilePath);
+                return;
+            }
+            
+            Microsoft.Office.Interop.Excel.Sheets sheets = xlWorkbook.Worksheets;
+            foreach (Microsoft.Office.Interop.Excel.Worksheet sheet in sheets)
+            {
+                //Utlity.Log(sheet.Name, logFilePath);
+                if (sheet.Name.Equals("MASTER ASSEMBLY", StringComparison.OrdinalIgnoreCase) == true)
+                {
+                    Microsoft.Office.Interop.Excel.Range xlRange = sheet.UsedRange;
+                    //Utlity.Log(xlRange.Rows.Count.ToString(), logFilePath);
+                    for (int i = 1; i <= xlRange.Rows.Count; i++)
+                    {
+                        if (i == 1)
+                            continue;
+
+                        String Status = "";
+
+                        //6 is the Status
+                        if (xlRange.Cells[i, 6].Value2 != null && xlRange.Cells[i, 6] != null)
+                        {
+                            
+
+                            try
+                            {
+                                Status = xlRange.Cells[i, 6].Value2;
+                                //Utlity.Log(Status, logFilePath);
+                                
+                            }
+                            catch (Exception ex)
+                            {
+                                Utlity.Log("Status" + ex.Message, logFilePath);
+                            }
+
+
+                        }
+                        // FullName (Includes Path)
+                        if (xlRange.Cells[i, 7].Value2 != null && xlRange.Cells[i, 7] != null)
+                        {
+                            try
+                            {
+                                String filePath = "";
+                                // FullName
+                                filePath = xlRange.Cells[i, 7].Value2;
+                                String fileName = Path.GetFileName(filePath);
+                                //Utlity.Log(fileName, logFilePath);
+                                if (componentList.Contains(fileName) == false)
+                                {
+                                    if (Status != null && Status.Equals("") == false)
+                                    {
+                                        if (Status.Equals("INCLUDED", StringComparison.OrdinalIgnoreCase) == true)
+                                        {
+                                            componentList.Add(fileName);
+                                        }
+                                        else if (Status.Equals("EXCLUDED", StringComparison.OrdinalIgnoreCase) == true)
+                                        {
+                                            Utlity.Log("fileName is Excluded : " + fileName, logFilePath);
+                                        }
+
+                                    }
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                Utlity.Log("FullName" + ex.Message, logFilePath);
+                            }
+                        }
+
+                    }
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(xlRange);
+
+                }
+                else
+                {
+                    continue;
+                }
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(sheet);
+
+            }
+
+            System.Runtime.InteropServices.Marshal.ReleaseComObject(sheets);
+            sheets = null;
+
+            //cleanup
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
+
+
+            //xlApp.Visible = true;     
+            
+            System.Runtime.InteropServices.Marshal.ReleaseComObject(xlWorkbook);
+            xlWorkbook = null;
+            //Utlity.Log("----------------------------------------------------------", logFilePath);
+            // Release xlApp outside this Function.
+        }
+
+    }
+}

@@ -1,0 +1,125 @@
+﻿using ExcelSync.opInterfaces;
+using ExcelSync.utils;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Diagnostics;
+using System.Drawing;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+using ExcelSync.TC;
+
+namespace ExcelSync
+{
+    public partial class SyncDwg : Form
+    {
+        public SyncDwg()
+        {
+            InitializeComponent();
+
+            Trace.Listeners.Add(new ListBoxTraceListener(listBox1));
+        }
+
+        private void SyncDwg_Click(object sender, EventArgs e)
+        {
+            Microsoft.Office.Interop.Excel.Application xlApp = Globals.ThisAddIn.Application;
+
+            List<object> arguments = new List<object>();
+            arguments.Add(xlApp);
+
+
+            if (backgroundWorker1.IsBusy != true)
+            {
+                this.button1.Enabled = false;
+                this.progressBar1.Visible = true;
+                backgroundWorker1.RunWorkerAsync(arguments);
+            }
+            else
+            {
+                MessageBox.Show("SyncTE: Process is Already Running.");
+                return;
+            } 
+        }
+
+        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
+        {
+            Microsoft.Office.Interop.Excel.Application application = null;
+            List<object> genericlist = e.Argument as List<object>;
+            application = (Microsoft.Office.Interop.Excel.Application)genericlist[0];
+
+            Microsoft.Office.Interop.Excel.Application xlApp = Globals.ThisAddIn.Application;
+
+
+            if (xlApp.ActiveWorkbook == null)
+            {
+                MessageBox.Show("Sync Dwg: Cannot Access Excel Application");
+                this.button1.Enabled = true;
+                return;
+            }
+            String xlFilePath = xlApp.ActiveWorkbook.FullName;
+            String LogStageDir = Utlity.CreateLogDirectory();
+            String logFilePath = System.IO.Path.Combine(LogStageDir, System.IO.Path.GetFileNameWithoutExtension(xlFilePath) + "_" + "SyncTE" + ".txt");
+            String topLineAssembly = Path.ChangeExtension(xlFilePath, ".asm");
+
+            // Update the Drafts
+            try
+            {
+                //Utlity.Log("Saving the Changes Done..", logFilePath, "INFO");
+                xlApp.ActiveWorkbook.Save();
+
+                Utlity.Log("Updating Views in Draft Files....", logFilePath, "INFO");
+                SolidEdgeUpdateView.SearchDraftFile(topLineAssembly, logFilePath);
+            }
+            catch (Exception ex)
+            {
+                Utlity.Log("SearchDraftFile: " + ex.Message, logFilePath);
+                e.Result = "NOK";
+             }
+
+            // Upload the files back to Teamcenter - 17 August 2019
+            try
+            {
+                Utlity.Log("Uploading files back to Teamcenter....", logFilePath, "INFO");
+                //TcAdaptor.login("dcproxy", "dcproxy", "Engineering", "Designer", logFilePath);
+                //TcAdaptor.TcAdaptor_Init();
+                SE_SESSION.InitializeSolidEdgeSession(logFilePath);
+                SEECAdaptor.LoginToTeamcenter();
+                SEECAdaptor.CheckInSEDocumentsToTeamcenter();
+                //TcAdaptor.uploadExcelToTC(xlFilePath, logFilePath);
+                //TcAdaptor.logout(logFilePath);
+            }
+            catch (Exception ex)
+            {
+                Utlity.Log("Uploading files back to Teamcenter.... " + ex.Message, logFilePath);
+                e.Result = "NOK";
+                return;
+            }
+            e.Result = "OK";
+
+        }
+
+        private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            if (e.Result.Equals("OK") == true)
+            {
+                this.DialogResult = DialogResult.OK;
+                this.Dispose();
+                
+                MessageBox.Show("Sync Dwg completed");
+                return;
+            }
+            else
+            {
+                this.DialogResult = DialogResult.Cancel;
+                this.Dispose();
+
+                MessageBox.Show("Sync Dwg Failed, Check Logs");
+                return;
+            }
+        }
+
+    }
+}

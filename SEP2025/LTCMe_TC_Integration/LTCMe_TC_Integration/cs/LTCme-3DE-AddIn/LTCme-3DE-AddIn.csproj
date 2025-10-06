@@ -1,0 +1,815 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{87C48599-1B04-4210-93CF-3D9750A62667}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DemoAddInTC</RootNamespace>
+    <AssemblyName>LTCmeAddInTC</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DataGridViewGrouper">
+      <HintPath>lib_tc14\DataGridViewGrouper.dll</HintPath>
+    </Reference>
+    <Reference Include="DgvFilterPopup">
+      <HintPath>lib_tc14\DgvFilterPopup.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="FCCNetClientProxy">
+      <HintPath>..\..\..\..\..\..\..\Users\USER\wntx64\soa_client\net\net48\FCCNetClientProxy.dll</HintPath>
+    </Reference>
+    <Reference Include="FCCNetClientProxy4064">
+      <HintPath>lib_tc14\FCCNetClientProxy4064.dll</HintPath>
+    </Reference>
+    <Reference Include="FMSNetTicket">
+      <HintPath>..\..\..\..\..\..\..\Users\USER\wntx64\soa_client\net\netstandard2.0\FMSNetTicket.dll</HintPath>
+    </Reference>
+    <Reference Include="FSCNetClientProxy">
+      <HintPath>..\..\..\..\..\..\..\Users\USER\wntx64\soa_client\net\netstandard2.0\FSCNetClientProxy.dll</HintPath>
+    </Reference>
+    <Reference Include="Interop.SeThumbnailLib">
+      <HintPath>..\..\..\..\..\..\..\W\LTCme\LTC_OCT_2024\LTCMe_TC_Integration\LTCMe_TC_Integration\cs\LTCme-3DE-AddIn\lib_tc14\Interop.SeThumbnailLib.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Interop.SolidEdge">
+      <HintPath>..\packages\Interop.SolidEdge.220.2.0\lib\net45\Interop.SolidEdge.dll</HintPath>
+    </Reference>
+    <Reference Include="interop.SolidEdgeRevisionManagerLib">
+      <HintPath>..\SE_DLL\interop.SolidEdgeRevisionManagerLib.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="interop.SolidEdgeStructureEditorLib">
+      <HintPath>..\SE_DLL\interop.SolidEdgeStructureEditorLib.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>lib_tc14\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="NCalc">
+      <HintPath>lib_tc14\NCalc.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="SharpGL">
+      <HintPath>..\packages\SharpGL.2.4.0.0\lib\net40\SharpGL.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpGL.SceneGraph">
+      <HintPath>..\packages\SharpGL.2.4.0.0\lib\net40\SharpGL.SceneGraph.dll</HintPath>
+    </Reference>
+    <Reference Include="SolidEdge.Community, Version=219.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SolidEdge.Community.219.0.0\lib\net45\SolidEdge.Community.dll</HintPath>
+    </Reference>
+    <Reference Include="SolidEdge.Community.AddIn, Version=219.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SolidEdge.Community.AddIn.219.0.0\lib\net40\SolidEdge.Community.AddIn.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="TcMemNetBinding">
+      <HintPath>..\2506TC_DLL\TcMemNetBinding.dll</HintPath>
+    </Reference>
+    <Reference Include="TcMemNetBinding4064">
+      <HintPath>lib_tc14\TcMemNetBinding4064.dll</HintPath>
+    </Reference>
+    <Reference Include="TcMemNetBindingInterface, Version=14.3.0.0, Culture=neutral, PublicKeyToken=0edd5b5ddd601444, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\2506TC_DLL\TcMemNetBindingInterface.dll</HintPath>
+    </Reference>
+    <Reference Include="TcServerNetBinding">
+      <HintPath>..\2506TC_DLL\TcServerNetBinding.dll</HintPath>
+    </Reference>
+    <Reference Include="TcServerNetBinding4064">
+      <HintPath>lib_tc14\TcServerNetBinding4064.dll</HintPath>
+    </Reference>
+    <Reference Include="TcServerNetBindingInterface, Version=14.3.0.0, Culture=neutral, PublicKeyToken=0edd5b5ddd601444, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\2506TC_DLL\TcServerNetBindingInterface.dll</HintPath>
+    </Reference>
+    <Reference Include="TcSoaBomStrong, Version=14000.3.0.0, Culture=neutral, PublicKeyToken=0edd5b5ddd601444, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\2506TC_DLL\TcSoaBomStrong.dll</HintPath>
+    </Reference>
+    <Reference Include="TcSoaCadStrong, Version=14000.3.0.0, Culture=neutral, PublicKeyToken=0edd5b5ddd601444, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\2506TC_DLL\TcSoaCadStrong.dll</HintPath>
+    </Reference>
+    <Reference Include="TcSoaClient, Version=14000.3.0.0, Culture=neutral, PublicKeyToken=0edd5b5ddd601444, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\2506TC_DLL\TcSoaClient.dll</HintPath>
+    </Reference>
+    <Reference Include="TcSoaCommon, Version=14000.3.0.0, Culture=neutral, PublicKeyToken=0edd5b5ddd601444, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\2506TC_DLL\TcSoaCommon.dll</HintPath>
+    </Reference>
+    <Reference Include="TcSoaCoreStrong, Version=14000.3.0.0, Culture=neutral, PublicKeyToken=0edd5b5ddd601444, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\2506TC_DLL\TcSoaCoreStrong.dll</HintPath>
+    </Reference>
+    <Reference Include="TcSoaQueryStrong, Version=14000.3.0.0, Culture=neutral, PublicKeyToken=0edd5b5ddd601444, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\2506TC_DLL\TcSoaQueryStrong.dll</HintPath>
+    </Reference>
+    <Reference Include="TcSoaStrongModel, Version=14000.3.0.0, Culture=neutral, PublicKeyToken=0edd5b5ddd601444, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\2506TC_DLL\TcSoaStrongModel.dll</HintPath>
+    </Reference>
+    <Reference Include="UIAutomationProvider" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="WindowsFormsIntegration" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="About.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="About.Designer.cs">
+      <DependentUpon>About.cs</DependentUpon>
+    </Compile>
+    <Compile Include="clientx\AppXCredentialManager.cs" />
+    <Compile Include="clientx\AppXExceptionHandler.cs" />
+    <Compile Include="clientx\AppXModelEventListener.cs" />
+    <Compile Include="clientx\AppXPartialErrorListener.cs" />
+    <Compile Include="clientx\AppXRequestListener.cs" />
+    <Compile Include="clientx\Session.cs" />
+    <Compile Include="controller\SanitizeXL_PostClone.cs" />
+    <Compile Include="controller\SanitizeXL_PostUpload_Logic.cs" />
+    <Compile Include="loginFromSE.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="loginFromSE.Designer.cs">
+      <DependentUpon>loginFromSE.cs</DependentUpon>
+    </Compile>
+    <Compile Include="opInterfaces\SolidEdgeOccurenceDelete_1.cs" />
+    <Compile Include="SanitizeXL_PostTVS.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SanitizeXL_PostTVS.Designer.cs">
+      <DependentUpon>SanitizeXL_PostTVS.cs</DependentUpon>
+    </Compile>
+    <Compile Include="se\CheckInOut.cs" />
+    <Compile Include="se\RegisterScaleFactor.cs" />
+    <Compile Include="se\SEECStuctureEditor.cs" />
+    <Compile Include="TC_TemplateCreationWizard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TC_TemplateCreationWizard.Designer.cs">
+      <DependentUpon>TC_TemplateCreationWizard.cs</DependentUpon>
+    </Compile>
+    <Compile Include="se\SEECAdaptor.cs" />
+    <Compile Include="se\TcAdaptor.cs" />
+    <Compile Include="controller\ExcelData.cs" />
+    <Compile Include="controller\ExcelReadFeatures.cs" />
+    <Compile Include="controller\SolidEdgeData.cs" />
+    <Compile Include="controller\SolidEdgeData1.cs" />
+    <Compile Include="controller\SolidEdgeData3.cs" />
+    <Compile Include="controller\SolidEdgeDuplicate.cs" />
+    <Compile Include="controller\SolidEdgeFeatureVariableMapper.cs" />
+    <Compile Include="controller\SolidEdgeHighLighter.cs" />
+    <Compile Include="controller\SolidEdgeRedefineLinks.cs" />
+    <Compile Include="controller\SolidEgeData2.cs" />
+    <Compile Include="CTCProgressDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CTCProgressDialog.Designer.cs">
+      <DependentUpon>CTCProgressDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CTEProgressDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CTEProgressDialog.Designer.cs">
+      <DependentUpon>CTEProgressDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CustomView\MyCustomDialog4View.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormulaEvaluator\ParameterExtractionVisitor.cs" />
+    <Compile Include="model\BOMLine.cs" />
+    <Compile Include="model\FeatureLine.cs" />
+    <Compile Include="model\Variable.cs" />
+    <Compile Include="MyCustomDialog1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MyCustomDialog1.Designer.cs">
+      <DependentUpon>MyCustomDialog1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MyCustomDialog2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MyCustomDialog2.Designer.cs">
+      <DependentUpon>MyCustomDialog2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MyCustomDialog3.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MyCustomDialog3.Designer.cs">
+      <DependentUpon>MyCustomDialog3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MyCustomDialog4.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MyCustomDialog4.Designer.cs">
+      <DependentUpon>MyCustomDialog4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="opInterfaces\CTEExcelDeltaUpdate.cs" />
+    <Compile Include="opInterfaces\CTEExcelDeltaUpdate_1.cs" />
+    <Compile Include="opInterfaces\ExcelComponentDeltaInterface.cs" />
+    <Compile Include="opInterfaces\ExcelComponentRemove.cs" />
+    <Compile Include="opInterfaces\ExcelDeltaInterface.cs" />
+    <Compile Include="opInterfaces\ExcelInterface.cs" />
+    <Compile Include="opInterfaces\SolidEdgeDrawingTracker.cs" />
+    <Compile Include="opInterfaces\SolidEdgeFormulaSync.cs" />
+    <Compile Include="opInterfaces\SolidEdgeInterface.cs" />
+    <Compile Include="opInterfaces\SolidEdgeOccurenceDelete.cs" />
+    <Compile Include="opInterfaces\SolidEdgeReadFeature.cs" />
+    <Compile Include="opInterfaces\SolidEdgeSetFeatureState.cs" />
+    <Compile Include="opInterfaces\SolidEdgeUpdateViews.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Ribbon2d.cs" />
+    <Compile Include="DemoAddIn.cs" />
+    <Compile Include="MyCustomDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MyCustomDialog.Designer.cs">
+      <DependentUpon>MyCustomDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MyEdgeBarControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MyEdgeBarControl.Designer.cs">
+      <DependentUpon>MyEdgeBarControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MyViewOverlay.cs" />
+    <Compile Include="Ribbon3d.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="services\Constants.cs" />
+    <Compile Include="services\CreoUtilitySession.cs" />
+    <Compile Include="services\DownLoadDataSetNameReference.cs" />
+    <Compile Include="services\TcPropertyReader.cs" />
+    <Compile Include="SyncTEDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SyncTEDialog.Designer.cs">
+      <DependentUpon>SyncTEDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TemplateCreationWizard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TemplateCreationWizard.Designer.cs">
+      <DependentUpon>TemplateCreationWizard.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TVSProgressDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TVSProgressDialog.Designer.cs">
+      <DependentUpon>TVSProgressDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="utils\Tc_Process.cs" />
+    <Compile Include="utils\ClipBoardUtils.cs" />
+    <Compile Include="utils\ConvertDataTableToList.cs" />
+    <Compile Include="FormulaEvaluator\FeatureFormulaParser.cs" />
+    <Compile Include="utils\ExcelUtils.cs" />
+    <Compile Include="utils\Get_Groups_Role.cs" />
+    <Compile Include="utils\ListBoxTraceListener.cs" />
+    <Compile Include="utils\ProcessInput.cs" />
+    <Compile Include="utils\Property.cs" />
+    <Compile Include="utils\SE_SESSION.cs" />
+    <Compile Include="utils\SolidEdgeUOM.cs" />
+    <Compile Include="utils\StringUtils.cs" />
+    <Compile Include="utils\TreeNode.cs" />
+    <Compile Include="utils\Utility.cs" />
+    <Compile Include="utils\Utlity.cs" />
+    <Compile Include="CustomView\MyCustomDialog3View.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="utils\ViewUtils.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="ClassDiagram1.cd" />
+    <None Include="lib\FileManagement.vshost.exe.manifest" />
+    <None Include="lib\log4net.1.2.10\log4net.1.2.10.nupkg" />
+    <None Include="packages.config" />
+    <None Include="Readme.docx" />
+    <None Include="Release\LTCmeAddIn.dll.config" />
+    <None Include="Ribbon.xsd">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="About.resx">
+      <DependentUpon>About.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="loginFromSE.resx">
+      <DependentUpon>loginFromSE.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SanitizeXL_PostTVS.resx">
+      <DependentUpon>SanitizeXL_PostTVS.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TC_TemplateCreationWizard.resx">
+      <DependentUpon>TC_TemplateCreationWizard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CTCProgressDialog.resx">
+      <DependentUpon>CTCProgressDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CTEProgressDialog.resx">
+      <DependentUpon>CTEProgressDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MyCustomDialog.resx">
+      <DependentUpon>MyCustomDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MyCustomDialog1.resx">
+      <DependentUpon>MyCustomDialog1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MyCustomDialog2.resx">
+      <DependentUpon>MyCustomDialog2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MyCustomDialog3.resx">
+      <DependentUpon>MyCustomDialog3.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MyCustomDialog4.resx">
+      <DependentUpon>MyCustomDialog4.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MyEdgeBarControl.resx">
+      <DependentUpon>MyEdgeBarControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Ribbon3d.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SyncTEDialog.resx">
+      <DependentUpon>SyncTEDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TemplateCreationWizard.resx">
+      <DependentUpon>TemplateCreationWizard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TVSProgressDialog.resx">
+      <DependentUpon>TVSProgressDialog.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Ribbon2d.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Build.txt" />
+    <Content Include="lib\Ads0SoaAdsFoundationStrong.dll" />
+    <Content Include="lib\Ads0SoaAdsFoundationTypes.dll" />
+    <Content Include="lib\Apb0SoaStrongModelAttrParmBase.dll" />
+    <Content Include="lib\Att0SoaAttrTargetMgmtStrong.dll" />
+    <Content Include="lib\Att0SoaAttrTargetMgmtTypes.dll" />
+    <Content Include="lib\Att0SoaStrongModelAttrTargetMgmt.dll" />
+    <Content Include="lib\CAE0SoaSimProcStrong.dll" />
+    <Content Include="lib\CAE0SoaSimProcTypes.dll" />
+    <Content Include="lib\Cba1SoaCbaExtStrong.dll" />
+    <Content Include="lib\Cba1SoaCbaExtTypes.dll" />
+    <Content Include="lib\Cba1SoaStrongModelCbaExt.dll" />
+    <Content Include="lib\Cbm0SoaColorBomPmmStrong.dll" />
+    <Content Include="lib\Cbm0SoaColorBomPmmTypes.dll" />
+    <Content Include="lib\Cbm0SoaStrongModelColorBomPmm.dll" />
+    <Content Include="lib\Cfg0SoaConfiguratorStrong.dll" />
+    <Content Include="lib\Cfg0SoaConfiguratorTypes.dll" />
+    <Content Include="lib\Cfg0SoaStrongModelConfigurator.dll" />
+    <Content Include="lib\Civ0SoaContMgmtS1000D40Strong.dll" />
+    <Content Include="lib\Civ0SoaContMgmtS1000D40Types.dll" />
+    <Content Include="lib\Clr0SoaColorAppearanceStrong.dll" />
+    <Content Include="lib\Clr0SoaColorAppearanceTypes.dll" />
+    <Content Include="lib\Clr0SoaStrongModelColorAppearance.dll" />
+    <Content Include="lib\Clr1SoaStrongModelColorRule.dll" />
+    <Content Include="lib\Cls0SoaClassificationCoreStrong.dll" />
+    <Content Include="lib\Cls0SoaClassificationCoreTypes.dll" />
+    <Content Include="lib\CoCreate.OsdmObjects.dll" />
+    <Content Include="lib\CoCreate.OsdmServer.dll" />
+    <Content Include="lib\CoCreate.SystemAddinLoader.dll" />
+    <Content Include="lib\Cpd0SoaCpdCoreStrong.dll" />
+    <Content Include="lib\Cpd0SoaCpdCoreTypes.dll" />
+    <Content Include="lib\Crt0SoaStrongModelValidationContract.dll" />
+    <Content Include="lib\Crt0SoaValidationContractStrong.dll" />
+    <Content Include="lib\Crt0SoaValidationContractTypes.dll" />
+    <Content Include="lib\Esm0SoaESMBaseStrong.dll" />
+    <Content Include="lib\Esm0SoaESMBaseTypes.dll" />
+    <Content Include="lib\FCCNetClientProxy.dll" />
+    <Content Include="lib\FCCNetClientProxy64.dll" />
+    <Content Include="lib\Fdp0SoaFourDPlanningStrong.dll" />
+    <Content Include="lib\Fdp0SoaFourDPlanningTypes.dll" />
+    <Content Include="lib\Fdp0SoaStrongModelFourDPlanning.dll" />
+    <Content Include="lib\FileManagement.exe" />
+    <Content Include="lib\FileManagement.pdb" />
+    <Content Include="lib\FileManagement.vshost.exe" />
+    <Content Include="lib\FMSNetTicket.dll" />
+    <Content Include="lib\Fnd0SoaAuditManagerStrong.dll" />
+    <Content Include="lib\Fnd0SoaAuditManagerTypes.dll" />
+    <Content Include="lib\Fnd0SoaConfigFilterCriteriaStrong.dll" />
+    <Content Include="lib\Fnd0SoaConfigFilterCriteriaTypes.dll" />
+    <Content Include="lib\Fnd0SoaDiagrammingStrong.dll" />
+    <Content Include="lib\Fnd0SoaDiagrammingTypes.dll" />
+    <Content Include="lib\Fnd0SoaEditContextStrong.dll" />
+    <Content Include="lib\Fnd0SoaEditContextTypes.dll" />
+    <Content Include="lib\Fnd0SoaNotificationStrong.dll" />
+    <Content Include="lib\Fnd0SoaNotificationTypes.dll" />
+    <Content Include="lib\Fnd0SoaQualificationStrong.dll" />
+    <Content Include="lib\Fnd0SoaQualificationTypes.dll" />
+    <Content Include="lib\Fnd0SoaUiConfigStrong.dll" />
+    <Content Include="lib\Fnd0SoaUiConfigTypes.dll" />
+    <Content Include="lib\FSCNetClientProxy.dll" />
+    <Content Include="lib\Lgt0SoaLogisticsStrong.dll" />
+    <Content Include="lib\Lgt0SoaLogisticsTypes.dll" />
+    <Content Include="lib\Lgt0SoaStrongModelLogistics.dll" />
+    <Content Include="lib\Lis0SoaLdfStrong.dll" />
+    <Content Include="lib\Lis0SoaLdfTypes.dll" />
+    <Content Include="lib\Lis0SoaStrongModelLdf.dll" />
+    <Content Include="lib\log4net.1.2.10\lib\1.0\log4net.dll" />
+    <Content Include="lib\log4net.1.2.10\lib\1.0\log4net.xml" />
+    <Content Include="lib\log4net.1.2.10\lib\1.1\log4net.dll" />
+    <Content Include="lib\log4net.1.2.10\lib\1.1\log4net.xml" />
+    <Content Include="lib\log4net.1.2.10\lib\2.0\log4net.dll" />
+    <Content Include="lib\log4net.1.2.10\lib\2.0\log4net.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="lib\log4net.dll" />
+    <Content Include="lib\Mat1SoaMaterialMgmtStrong.dll" />
+    <Content Include="lib\Mat1SoaMaterialMgmtTypes.dll" />
+    <Content Include="lib\Mci0SoaPMIManagementStrong.dll" />
+    <Content Include="lib\Mci0SoaPMIManagementTypes.dll" />
+    <Content Include="lib\Mdl0SoaModelCoreStrong.dll" />
+    <Content Include="lib\Mdl0SoaModelCoreTypes.dll" />
+    <Content Include="lib\Mei0SoaMESIntegStrong.dll" />
+    <Content Include="lib\Mei0SoaMESIntegTypes.dll" />
+    <Content Include="lib\Mei0SoaStrongModelMESInteg.dll" />
+    <Content Include="lib\Ptn0SoaPartitionStrong.dll" />
+    <Content Include="lib\Ptn0SoaPartitionTypes.dll" />
+    <Content Include="lib\ReadMe.txt" />
+    <Content Include="lib\SAS0SoaStrongModelServiceAutomatedScheduling.dll" />
+    <Content Include="lib\SAS0SoaSvcAutoSchedulingStrong.dll" />
+    <Content Include="lib\SAS0SoaSvcAutoSchedulingTypes.dll" />
+    <Content Include="lib\Sci0SoaIMDSIntegrationStrong.dll" />
+    <Content Include="lib\Sci0SoaIMDSIntegrationTypes.dll" />
+    <Content Include="lib\Scp0SoaSubsCmplStrong.dll" />
+    <Content Include="lib\Scp0SoaSubsCmplTypes.dll" />
+    <Content Include="lib\SSF0SoaServiceForecastingStrong.dll" />
+    <Content Include="lib\SSF0SoaServiceForecastingTypes.dll" />
+    <Content Include="lib\SSF0SoaStrongModelServiceForecasting.dll" />
+    <Content Include="lib\SSS0SoaStrongModelServiceScheduling.dll" />
+    <Content Include="lib\SSS0SoaSvcSchedulingStrong.dll" />
+    <Content Include="lib\SSS0SoaSvcSchedulingTypes.dll" />
+    <Content Include="lib\TC3SoaFolderManagementStrong.dll" />
+    <Content Include="lib\TC3SoaFolderManagementTypes.dll" />
+    <Content Include="lib\TcMemBindingv100.dll" />
+    <Content Include="lib\TcMemBindingv10064.dll" />
+    <Content Include="lib\TcMemNetBinding.dll" />
+    <Content Include="lib\TcMemNetBinding64.dll" />
+    <Content Include="lib\TcMemNetBindingInterface.dll" />
+    <Content Include="lib\TcMemNetBindingInterface40.dll" />
+    <Content Include="lib\TcServerBindingv100.dll" />
+    <Content Include="lib\TcServerBindingv10064.dll" />
+    <Content Include="lib\TcServerNetBinding.dll" />
+    <Content Include="lib\TcServerNetBinding64.dll" />
+    <Content Include="lib\TcServerNetBindingInterface.dll" />
+    <Content Include="lib\TcServerNetBindingInterface40.dll" />
+    <Content Include="lib\TcSoaAdministrationStrong.dll" />
+    <Content Include="lib\TcSoaAdministrationTypes.dll" />
+    <Content Include="lib\TcSoaAiStrong.dll" />
+    <Content Include="lib\TcSoaAiTypes.dll" />
+    <Content Include="lib\TcSoaAllocationsStrong.dll" />
+    <Content Include="lib\TcSoaAllocationsTypes.dll" />
+    <Content Include="lib\TcSoaAsbAsmAlignmentStrong.dll" />
+    <Content Include="lib\TcSoaAsbAsmAlignmentTypes.dll" />
+    <Content Include="lib\TcSoaAsBuiltStrong.dll" />
+    <Content Include="lib\TcSoaAsBuiltTypes.dll" />
+    <Content Include="lib\TcSoaAsMaintainedStrong.dll" />
+    <Content Include="lib\TcSoaAsMaintainedTypes.dll" />
+    <Content Include="lib\TcSoaAuthorizedDataAccessStrong.dll" />
+    <Content Include="lib\TcSoaAuthorizedDataAccessTypes.dll" />
+    <Content Include="lib\TcSoaBomStrong.dll" />
+    <Content Include="lib\TcSoaBomTypes.dll" />
+    <Content Include="lib\TcSoaBusinessModelerStrong.dll" />
+    <Content Include="lib\TcSoaBusinessModelerTypes.dll" />
+    <Content Include="lib\TcSoaCadBomAlignmentStrong.dll" />
+    <Content Include="lib\TcSoaCadBomAlignmentTypes.dll" />
+    <Content Include="lib\TcSoaCadStrong.dll" />
+    <Content Include="lib\TcSoaCadTypes.dll" />
+    <Content Include="lib\TcSoaCaeStrong.dll" />
+    <Content Include="lib\TcSoaCaeTypes.dll" />
+    <Content Include="lib\TcSoaCalendarManagementStrong.dll" />
+    <Content Include="lib\TcSoaCalendarManagementTypes.dll" />
+    <Content Include="lib\TcSoaChangeManagementStrong.dll" />
+    <Content Include="lib\TcSoaChangeManagementTypes.dll" />
+    <Content Include="lib\TcSoaClassificationStrong.dll" />
+    <Content Include="lib\TcSoaClassificationTypes.dll" />
+    <Content Include="lib\TcSoaClient.dll" />
+    <Content Include="lib\TcSoaCommon.dll" />
+    <Content Include="lib\TcSoaConfigurationStrong.dll" />
+    <Content Include="lib\TcSoaConfigurationTypes.dll" />
+    <Content Include="lib\TcSoaContMgmtBaseStrong.dll" />
+    <Content Include="lib\TcSoaContMgmtBaseTypes.dll" />
+    <Content Include="lib\TcSoaCoreStrong.dll" />
+    <Content Include="lib\TcSoaCoreTypes.dll" />
+    <Content Include="lib\TcSoaDocumentManagementStrong.dll" />
+    <Content Include="lib\TcSoaDocumentManagementTypes.dll" />
+    <Content Include="lib\TcSoaFMS.dll" />
+    <Content Include="lib\TcSoaFMS64.dll" />
+    <Content Include="lib\TcSoaGlobalMultiSiteStrong.dll" />
+    <Content Include="lib\TcSoaGlobalMultiSiteTypes.dll" />
+    <Content Include="lib\TcSoaImportExportStrong.dll" />
+    <Content Include="lib\TcSoaImportExportTypes.dll" />
+    <Content Include="lib\TcSoaIssueManagementStrong.dll" />
+    <Content Include="lib\TcSoaIssueManagementTypes.dll" />
+    <Content Include="lib\TcSoaManufacturingStrong.dll" />
+    <Content Include="lib\TcSoaManufacturingTypes.dll" />
+    <Content Include="lib\TcSoaMESStrong.dll" />
+    <Content Include="lib\TcSoaMESTypes.dll" />
+    <Content Include="lib\TcSoaMROCoreStrong.dll" />
+    <Content Include="lib\TcSoaMROCoreTypes.dll" />
+    <Content Include="lib\TcSoaMultisiteStrong.dll" />
+    <Content Include="lib\TcSoaMultisiteTypes.dll" />
+    <Content Include="lib\TcSoaParameterManagementStrong.dll" />
+    <Content Include="lib\TcSoaParameterManagementTypes.dll" />
+    <Content Include="lib\TcSoaProductionManagementStrong.dll" />
+    <Content Include="lib\TcSoaProductionManagementTypes.dll" />
+    <Content Include="lib\TcSoaProjectManagementStrong.dll" />
+    <Content Include="lib\TcSoaProjectManagementTypes.dll" />
+    <Content Include="lib\TcSoaQueryStrong.dll" />
+    <Content Include="lib\TcSoaQueryTypes.dll" />
+    <Content Include="lib\TcSoaRdvStrong.dll" />
+    <Content Include="lib\TcSoaRdvTypes.dll" />
+    <Content Include="lib\TcSoaReportsStrong.dll" />
+    <Content Include="lib\TcSoaReportsTypes.dll" />
+    <Content Include="lib\TcSoaRequirementsManagementStrong.dll" />
+    <Content Include="lib\TcSoaRequirementsManagementTypes.dll" />
+    <Content Include="lib\TcSoaSrmIntegrationStrong.dll" />
+    <Content Include="lib\TcSoaSrmIntegrationTypes.dll" />
+    <Content Include="lib\TcSoaStrongModel.dll" />
+    <Content Include="lib\TcSoaStrongModelAcadGmo.dll" />
+    <Content Include="lib\TcSoaStrongModelAdsChangeManagement.dll" />
+    <Content Include="lib\TcSoaStrongModelAdsFoundation.dll" />
+    <Content Include="lib\TcSoaStrongModelAsBuilt.dll" />
+    <Content Include="lib\TcSoaStrongModelAsMaintained.dll" />
+    <Content Include="lib\TcSoaStrongModelBrndMgmt.dll" />
+    <Content Include="lib\TcSoaStrongModelCba.dll" />
+    <Content Include="lib\TcSoaStrongModelCbaExt.dll" />
+    <Content Include="lib\TcSoaStrongModelCcdm.dll" />
+    <Content Include="lib\TcSoaStrongModelCdm0ContractManagement.dll" />
+    <Content Include="lib\TcSoaStrongModelClassificationCore.dll" />
+    <Content Include="lib\TcSoaStrongModelCm.dll" />
+    <Content Include="lib\TcSoaStrongModelCmtEbop.dll" />
+    <Content Include="lib\TcSoaStrongModelCmtEmserver.dll" />
+    <Content Include="lib\TcSoaStrongModelCmtPadTwp.dll" />
+    <Content Include="lib\TcSoaStrongModelContmgmtBase.dll" />
+    <Content Include="lib\TcSoaStrongModelContmgmtDita.dll" />
+    <Content Include="lib\TcSoaStrongModelContmgmtS1000d.dll" />
+    <Content Include="lib\TcSoaStrongModelContmgmtS1000d40.dll" />
+    <Content Include="lib\TcSoaStrongModelCpdCm.dll" />
+    <Content Include="lib\TcSoaStrongModelCpdCore.dll" />
+    <Content Include="lib\TcSoaStrongModelCpgMaterials.dll" />
+    <Content Include="lib\TcSoaStrongModelDpv.dll" />
+    <Content Include="lib\TcSoaStrongModelEdaLibrary.dll" />
+    <Content Include="lib\TcSoaStrongModelEdaServer.dll" />
+    <Content Include="lib\TcSoaStrongModelEmps.dll" />
+    <Content Include="lib\TcSoaStrongModelEsddm.dll" />
+    <Content Include="lib\TcSoaStrongModelEsddmScm.dll" />
+    <Content Include="lib\TcSoaStrongModelEsmBase.dll" />
+    <Content Include="lib\TcSoaStrongModelEsmProcessor.dll" />
+    <Content Include="lib\TcSoaStrongModelEsmSoftware.dll" />
+    <Content Include="lib\TcSoaStrongModelFnshmgmt.dll" />
+    <Content Include="lib\TcSoaStrongModelFpMgmt.dll" />
+    <Content Include="lib\TcSoaStrongModelGmdpv.dll" />
+    <Content Include="lib\TcSoaStrongModelGmo.dll" />
+    <Content Include="lib\TcSoaStrongModelHrn.dll" />
+    <Content Include="lib\TcSoaStrongModelIssueManagement.dll" />
+    <Content Include="lib\TcSoaStrongModelMaterialMgmt.dll" />
+    <Content Include="lib\TcSoaStrongModelMES.dll" />
+    <Content Include="lib\TcSoaStrongModelModelCore.dll" />
+    <Content Include="lib\TcSoaStrongModelMROCore.dll" />
+    <Content Include="lib\TcSoaStrongModelPartition.dll" />
+    <Content Include="lib\TcSoaStrongModelPenetrationmgmt.dll" />
+    <Content Include="lib\TcSoaStrongModelPkgArt.dll" />
+    <Content Include="lib\TcSoaStrongModelPlp0ProdLinePlan.dll" />
+    <Content Include="lib\TcSoaStrongModelProductVariant.dll" />
+    <Content Include="lib\TcSoaStrongModelRealization.dll" />
+    <Content Include="lib\TcSoaStrongModelScdt.dll" />
+    <Content Include="lib\TcSoaStrongModelSci0IMDSIntegration.dll" />
+    <Content Include="lib\TcSoaStrongModelScmCc.dll" />
+    <Content Include="lib\TcSoaStrongModelServiceEventManagement.dll" />
+    <Content Include="lib\TcSoaStrongModelServiceProcessing.dll" />
+    <Content Include="lib\TcSoaStrongModelServiceRequest.dll" />
+    <Content Include="lib\TcSoaStrongModelSpecMgr.dll" />
+    <Content Include="lib\TcSoaStrongModelStockMaterial.dll" />
+    <Content Include="lib\TcSoaStrongModelSubsCmpl.dll" />
+    <Content Include="lib\TcSoaStrongModelTcae.dll" />
+    <Content Include="lib\TcSoaStrongModelTransactionProcessing.dll" />
+    <Content Include="lib\TcSoaStrongModelVendorManagement.dll" />
+    <Content Include="lib\TcSoaStrongModelWeldManagement.dll" />
+    <Content Include="lib\TcSoaStrongModelWorkPackageManagement.dll" />
+    <Content Include="lib\TcSoaStructureManagementStrong.dll" />
+    <Content Include="lib\TcSoaStructureManagementTypes.dll" />
+    <Content Include="lib\TcSoaSvcProcessingStrong.dll" />
+    <Content Include="lib\TcSoaSvcProcessingTypes.dll" />
+    <Content Include="lib\TcSoaSvcRequestStrong.dll" />
+    <Content Include="lib\TcSoaSvcRequestTypes.dll" />
+    <Content Include="lib\TcSoaSystemsEngineeringStrong.dll" />
+    <Content Include="lib\TcSoaSystemsEngineeringTypes.dll" />
+    <Content Include="lib\TcSoaTranslationStrong.dll" />
+    <Content Include="lib\TcSoaTranslationTypes.dll" />
+    <Content Include="lib\TcSoaVendorManagementStrong.dll" />
+    <Content Include="lib\TcSoaVendorManagementTypes.dll" />
+    <Content Include="lib\TcSoaVisualizationStrong.dll" />
+    <Content Include="lib\TcSoaVisualizationTypes.dll" />
+    <Content Include="lib\TcSoaWireHarnessStrong.dll" />
+    <Content Include="lib\TcSoaWireHarnessTypes.dll" />
+    <Content Include="lib\TcSoaWorkflowStrong.dll" />
+    <Content Include="lib\TcSoaWorkflowTypes.dll" />
+    <Content Include="lib\Teamcenter_SSO.dll" />
+    <Content Include="lib\Teamcenter_SSO64.dll" />
+    <Content Include="lib\Teamcenter_SSOloader.dll" />
+    <Content Include="lib\Tm0SoaStrongModelTestManagement.dll" />
+    <Content Include="lib\Tm0SoaTestManagementStrong.dll" />
+    <Content Include="lib\Tm0SoaTestManagementTypes.dll" />
+    <Content Include="ReleaseNotes.txt" />
+    <Content Include="Release\Antlr3.Runtime.dll" />
+    <Content Include="Release\DataGridViewGrouper.dll" />
+    <Content Include="Release\DataGridViewGrouper.pdb" />
+    <Content Include="Release\DgvFilterPopup.dll" />
+    <Content Include="Release\EntityFramework.dll" />
+    <Content Include="Release\EntityFramework.xml" />
+    <Content Include="Release\Interop.SolidEdge.dll" />
+    <Content Include="Release\Interop.SolidEdge.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Release\LTCmeAddIn.dll" />
+    <Content Include="Release\LTCmeAddIn.pdb" />
+    <Content Include="Release\NCalc.dll" />
+    <Content Include="Release\NCalc.pdb" />
+    <Content Include="Release\SharpGL.dll" />
+    <Content Include="Release\SharpGL.pdb" />
+    <Content Include="Release\SharpGL.SceneGraph.dll" />
+    <Content Include="Release\SharpGL.SceneGraph.pdb" />
+    <Content Include="Release\SharpGL.SceneGraph.xml" />
+    <Content Include="Release\SharpGL.xml" />
+    <Content Include="Release\SolidEdge.Community.AddIn.dll" />
+    <Content Include="Release\SolidEdge.Community.AddIn.xml" />
+    <Content Include="Release\SolidEdge.Community.dll" />
+    <Content Include="Release\SolidEdge.Community.xml" />
+    <Content Include="res\BoundingBox_32.png" />
+    <Content Include="res\Boxes_32.png" />
+    <Content Include="res\Box_32x32.png" />
+    <Content Include="res\Camera_32x32.png" />
+    <Content Include="res\checkout_32.png" />
+    <Content Include="res\CommandPrompt_32x32.png" />
+    <Content Include="res\Creation.png" />
+    <Content Include="res\Derive.png" />
+    <Content Include="res\Duplicate.png" />
+    <Content Include="res\EdgeBar_20x20.png" />
+    <Content Include="res\Edit.png" />
+    <Content Include="res\Favorites_32x32.png" />
+    <Content Include="res\Folder_16x16.png" />
+    <Content Include="res\formula.png" />
+    <Content Include="res\GdiPlus_32.png" />
+    <Content Include="res\Help_32x32.png" />
+    <None Include="res\icons_sync.png" />
+    <Content Include="res\icons_duplicate.png" />
+    <Content Include="res\icons_excel.png" />
+    <Content Include="res\login.png" />
+    <Content Include="res\Monitor_16x16.png" />
+    <Content Include="res\Notepad_32x32.png" />
+    <Content Include="res\OpenExcel.png" />
+    <Content Include="res\part.gif" />
+    <Content Include="res\Photograph_32x32.png" />
+    <Content Include="res\Printer_32x32.png" />
+    <Content Include="res\Question_32x32.png" />
+    <Content Include="res\Save_16x16.png" />
+    <Content Include="res\Search_32x32.png" />
+    <Content Include="res\Selection.png" />
+    <Content Include="res\subasm.gif" />
+    <Content Include="res\Sync.png" />
+    <Content Include="res\Tools_32x32.png" />
+    <Content Include="Settings.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="Microsoft.Office.Core">
+      <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>8</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="Microsoft.Office.Interop.Excel">
+      <Guid>{00020813-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>9</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="VBIDE">
+      <Guid>{0002E157-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>5</VersionMajor>
+      <VersionMinor>3</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+  <Import Project="..\packages\SolidEdge.Community.AddIn.219.0.0\build\net40\SolidEdge.Community.AddIn.targets" Condition="Exists('..\packages\SolidEdge.Community.AddIn.219.0.0\build\net40\SolidEdge.Community.AddIn.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\SolidEdge.Community.AddIn.219.0.0\build\net40\SolidEdge.Community.AddIn.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\SolidEdge.Community.AddIn.219.0.0\build\net40\SolidEdge.Community.AddIn.targets'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

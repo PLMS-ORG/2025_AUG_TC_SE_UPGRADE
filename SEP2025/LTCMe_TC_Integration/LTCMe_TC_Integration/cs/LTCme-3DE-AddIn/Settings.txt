@@ -1,0 +1,1 @@
+﻿TEMPLATE_PUBLISH_FOLDER="C:\Users\Murali\Documents\Projects\LTC\LTCMeAddIn_v3\cs\DemoAddIn\bin\x64\Release"

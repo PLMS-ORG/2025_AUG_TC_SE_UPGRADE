@@ -1,0 +1,464 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using SolidEdgeCommunity;
+using ExcelSyncTC.utils;
+using ExcelSyncTC.controller;
+
+namespace ExcelSyncTC.opInterfaces
+{
+    class SolidEdgeOccurrenceDelete : IsolatedTaskProxy
+    {
+
+        public void SolidEdgeOccurrenceDeleteFromExcelSTAT(String assemblyFileName, String logFilePath)
+        {
+            InvokeSTAThread<String, String>(SolidEdgeOccurrenceDeleteFromExcel, assemblyFileName, logFilePath);
+        }
+
+        private static void OccurrenceActivate(SolidEdgeAssembly.Occurrence occurrence, bool value, String logFilePath)
+        {
+            try
+            {
+                Utlity.Log(occurrence.Name + " : Deleting..", logFilePath);
+                occurrence.Visible = value;
+                occurrence.IncludeInBom = value;
+                occurrence.IncludeInInterference = value;
+                occurrence.IncludeInPhysicalProperties = value;
+                occurrence.DisplayInDrawings = value;
+                occurrence.DisplayInSubAssembly = value;
+               
+                occurrence.Activate = value;               
+                occurrence.Delete();
+
+            }
+            catch (Exception ex)
+            {
+                Utlity.Log("OccurrenceActivate- Exception: " + ex.Message, logFilePath);
+            }
+        }
+
+        [STAThread]
+        public void SolidEdgeOccurrenceDeleteFromExcel(String assemblyFileName, String logFilePath)
+        {
+
+            List<String> MasterAssemblyList = MasterAssemblyReader.getComponents();
+
+            if (MasterAssemblyList == null || MasterAssemblyList.Count == 0)
+            {
+                Utlity.Log("RemoveSheet: " + "Remove Component List is Empty", logFilePath);
+                return;
+            }
+
+
+            SolidEdgeFramework.Documents objDocuments = null;
+            SolidEdgeAssembly.AssemblyDocument objAssemblyDocument = null;
+            SolidEdgeAssembly.Occurrences occurrences = null;
+            SolidEdgeAssembly.Occurrence occurrence = null;
+
+            try
+            {
+                OleMessageFilter.Register();
+
+                SolidEdgeFramework.Application objApp = SolidEdgeCommunity.SolidEdgeUtils.Connect();
+                //SolidEdgeFramework.Application objApp = SE_SESSION.getSolidEdgeSession();
+                if (objApp == null)
+                {
+                    Utlity.Log("DEBUG : Solid Edge Application Object is NULL - ", logFilePath);
+                    return;
+                }
+
+                objDocuments = objApp.Documents;
+                objApp.DisplayAlerts = false;
+
+                objAssemblyDocument = (SolidEdgeAssembly.AssemblyDocument)objApp.ActiveDocument;
+                Utlity.Log("DEBUG - InputFile is Opened : " + assemblyFileName, logFilePath);
+
+                if (objAssemblyDocument == null)
+                {
+                    Utlity.Log("DEBUG - InputFile is NOT Opened : ", logFilePath);
+                    return;
+                }
+
+                if (objAssemblyDocument != null)
+                {
+                    // This is for Top Assembly Alone
+                    // Utlity.Log("AssemDoc.Name : " + objAssemblyDocument.Name, logFilePath);                    
+                    occurrences = objAssemblyDocument.Occurrences;
+
+                    if (occurrences == null || occurrences.Count == 0)
+                    {
+                        Utlity.Log("occurrences is Empty--", logFilePath);
+                        return;
+                    }
+
+                    for (int i = 1; i <= occurrences.Count; i++)
+                    {
+                        occurrence = occurrences.Item(i);
+                        String occurenceName = occurrence.Name;
+                        String[] occArr = occurenceName.Split(':');
+                        if (occArr.Length == 2)
+                        {
+                            occurenceName = occArr[0];
+                        }
+                        else
+                        {
+                            Utlity.Log("Cant Parse OccurenceName--", logFilePath);
+                            continue;
+                        }
+
+
+                        //Utlity.Log("-----------------------------------------", logFilePath);
+                        //Utlity.Log("occurenceName--" + occurenceName, logFilePath);
+                        int occurenceQty = occurrence.Quantity;
+                        //Utlity.Log("occurenceQty--" + occurenceQty, logFilePath);
+                        String ocurenceFileName = occurrence.OccurrenceFileName;
+                        //Utlity.Log("ocurenceFileName--" + ocurenceFileName, logFilePath);
+                        if (occurrence.OccurrenceDocument is SolidEdgePart.PartDocument)
+                        {
+                            if (MasterAssemblyList.Contains(occurenceName) == false)
+                            {
+                                OccurrenceActivate(occurrence, true, logFilePath);
+                                SaveAssembly(objAssemblyDocument, logFilePath);
+                            }
+
+                        }
+                        else if (occurrence.OccurrenceDocument is SolidEdgePart.SheetMetalDocument)
+                        {
+                            if (MasterAssemblyList.Contains(occurenceName) == false)
+                            {
+                                OccurrenceActivate(occurrence, true, logFilePath);
+                                SaveAssembly(objAssemblyDocument, logFilePath);
+                            }
+                            
+                        }
+                        else if (occurrence.OccurrenceFileName.EndsWith(".asm") == true)
+                        {
+                            SolidEdgeAssembly.AssemblyDocument assemDoc1 = null;
+                            assemDoc1 = (SolidEdgeAssembly.AssemblyDocument)occurrence.OccurrenceDocument;
+                          
+
+                            if (MasterAssemblyList.Contains(occurenceName) == false)
+                            {
+                                OccurrenceActivate(occurrence, true, logFilePath);
+                                SaveAssembly(objAssemblyDocument, logFilePath);
+                            }
+                            else
+                            {
+                                traverseAssembly1(occurrence.OccurrenceFileName, logFilePath);
+                            }
+                        }
+
+                        //Utlity.Log("-----------------------------------------", logFilePath);
+
+
+                    }
+                    SaveAndCloseAssembly(objAssemblyDocument, logFilePath);
+                }
+                else
+                {
+                    return;
+                }
+            }
+            catch (Exception ex)
+            {
+                Utlity.Log("Exception: " + ex.Message, logFilePath);
+                Utlity.Log("Exception: " + ex.Source, logFilePath);
+                Utlity.Log("Exception: " + ex.StackTrace, logFilePath);
+            }
+            finally
+            {
+                OleMessageFilter.Unregister();
+            }
+
+        }
+
+        private static void traverseAssembly1(String AssemblyFile, String logFilePath)
+        {
+            
+
+            Utlity.Log("AssemblyFile: " + AssemblyFile, logFilePath);  
+            List<String> MasterAssemblyList = MasterAssemblyReader.getComponents();
+
+            if (MasterAssemblyList == null || MasterAssemblyList.Count == 0)
+            {
+                Utlity.Log("RemoveSheet: " + "Remove Component List is Empty", logFilePath);
+                return;
+            }
+
+            if (System.IO.File.Exists(AssemblyFile) == false)
+            {
+                Utlity.Log("File does not Exist:  " + AssemblyFile, logFilePath);
+                return;
+            }
+
+
+            SolidEdgeAssembly.Occurrences occurrences = null;
+            SolidEdgeAssembly.Occurrence occurrence = null;
+
+            try
+            {
+                OleMessageFilter.Register();
+
+              SolidEdgeFramework.Application objApp=  SolidEdgeCommunity.SolidEdgeUtils.Connect();
+              if (objApp == null) return;
+              SolidEdgeFramework.Documents objDocuments = null;
+                objDocuments = objApp.Documents;
+                if (objDocuments == null) return;
+                objApp.DisplayAlerts = false;
+                //objApp.Visible = false;
+                SolidEdgeAssembly.AssemblyDocument objAssemblyDocument = null;
+                objAssemblyDocument = (SolidEdgeAssembly.AssemblyDocument)objDocuments.Open(AssemblyFile);
+                Utlity.Log("DEBUG - InputFile is Opened : " + AssemblyFile, logFilePath);               
+
+                occurrences = objAssemblyDocument.Occurrences;
+
+                //Utlity.Log("occurrences.Count: " + occurrences.Count, logFilePath);
+                for (int i = 1; i <= occurrences.Count; i++)
+                {
+                    occurrence = occurrences.Item(i);
+                    String occurenceName = occurrence.Name;
+                    String[] occArr = occurenceName.Split(':');
+                    if (occArr.Length == 2)
+                    {
+                        occurenceName = occArr[0];
+                    }
+                    else
+                    {
+                        Utlity.Log("Cant Parse OccurenceName--", logFilePath);
+                        continue;
+                    }
+
+
+                    //Utlity.Log("-----------------------------------------", logFilePath);
+                    Utlity.Log("occurenceName--" + occurenceName, logFilePath);
+                    int occurenceQty = occurrence.Quantity;
+                    //Utlity.Log("occurenceQty--" + occurenceQty, logFilePath);
+                    String ocurenceFileName = occurrence.OccurrenceFileName;
+                    //Utlity.Log("ocurenceFileName--" + ocurenceFileName, logFilePath);
+
+                    if (occurrence.OccurrenceDocument is SolidEdgePart.PartDocument)
+                    {
+                        if (MasterAssemblyList.Contains(occurenceName) == false)
+                        {
+                            OccurrenceActivate(occurrence, true, logFilePath);
+                            SaveAssembly(objAssemblyDocument, logFilePath);
+                        }
+                    }
+                    else if (occurrence.OccurrenceDocument is SolidEdgePart.SheetMetalDocument)
+                    {
+                        if (MasterAssemblyList.Contains(occurenceName) == false)
+                        {
+                            OccurrenceActivate(occurrence, true, logFilePath);
+                            SaveAssembly(objAssemblyDocument, logFilePath);
+                        }
+                    }
+                    else if (occurrence.OccurrenceDocument is SolidEdgeAssembly.AssemblyDocument)
+                    {
+                        SolidEdgeAssembly.AssemblyDocument assemDoc1 = (SolidEdgeAssembly.AssemblyDocument)occurrence.OccurrenceDocument;
+                        if (MasterAssemblyList.Contains(occurenceName) == false)
+                        {
+                            OccurrenceActivate(occurrence, true, logFilePath);
+                            SaveAssembly(objAssemblyDocument, logFilePath);
+                        }
+                        else
+                        {
+                            traverseAssembly1(occurrence.OccurrenceFileName, logFilePath);
+                        }
+
+                    }
+                }
+                Utlity.Log("DEBUG - File is Being Closed : " + AssemblyFile, logFilePath);  
+                SaveAndCloseAssembly(objAssemblyDocument, logFilePath);
+            }
+
+            catch (Exception ex)
+            {
+                Utlity.Log("Exception: " + ex.Message, logFilePath);
+                Utlity.Log("Exception: " + ex.Source, logFilePath);
+                Utlity.Log("Exception: " + ex.StackTrace, logFilePath);
+            }
+            finally
+            {
+                OleMessageFilter.Unregister();
+            }
+
+            
+           
+
+        }
+        private static void traverseAssembly(SolidEdgeAssembly.AssemblyDocument assemDoc, String logFilePath)
+        {
+            SolidEdgeAssembly.Occurrences occurrences = null;
+            SolidEdgeAssembly.Occurrence occurrence = null;
+
+            if (assemDoc == null)
+            {
+                Utlity.Log("assemDoc is Empty: " + assemDoc.Name, logFilePath);
+                return;
+            }
+            
+            //Utlity.Log("assemDoc.Name: " + assemDoc.Name, logFilePath);  
+            List<String> MasterAssemblyList = MasterAssemblyReader.getComponents();
+
+            if (MasterAssemblyList == null || MasterAssemblyList.Count == 0)
+            {
+                Utlity.Log("RemoveSheet: " + "Remove Component List is Empty", logFilePath);
+                return;
+            }
+
+            occurrences = assemDoc.Occurrences;
+            //Utlity.Log("occurrences.Count: " + occurrences.Count, logFilePath);
+            for (int i = 1; i <= occurrences.Count; i++)
+            {
+                occurrence = occurrences.Item(i);
+                String occurenceName = occurrence.Name;
+                String[] occArr = occurenceName.Split(':');
+                if (occArr.Length == 2)
+                {
+                    occurenceName = occArr[0];
+                }
+                else
+                {
+                    Utlity.Log("Cant Parse OccurenceName--", logFilePath);
+                    continue;
+                }
+
+
+                //Utlity.Log("-----------------------------------------", logFilePath);
+                Utlity.Log("occurenceName--" + occurenceName, logFilePath);
+                int occurenceQty = occurrence.Quantity;
+                //Utlity.Log("occurenceQty--" + occurenceQty, logFilePath);
+                String ocurenceFileName = occurrence.OccurrenceFileName;
+                //Utlity.Log("ocurenceFileName--" + ocurenceFileName, logFilePath);
+
+                if (occurrence.OccurrenceDocument is SolidEdgePart.PartDocument)
+                {
+                    if (MasterAssemblyList.Contains(occurenceName) == false)
+                    {
+                        OccurrenceActivate(occurrence, true, logFilePath);
+
+                    }
+                }
+                else if (occurrence.OccurrenceDocument is SolidEdgePart.SheetMetalDocument)
+                {
+                    if (MasterAssemblyList.Contains(occurenceName) == false)
+                    {
+                        OccurrenceActivate(occurrence, true, logFilePath);
+
+                    }
+                }
+                else if (occurrence.OccurrenceDocument is SolidEdgeAssembly.AssemblyDocument)
+                {
+                    SolidEdgeAssembly.AssemblyDocument assemDoc1 = (SolidEdgeAssembly.AssemblyDocument)occurrence.OccurrenceDocument;
+                    if (MasterAssemblyList.Contains(occurenceName) == false)
+                    {
+                        OccurrenceActivate(occurrence, true, logFilePath);
+
+                    }
+                    else
+                    {
+                        traverseAssembly(assemDoc1, logFilePath);
+                    }
+
+                }
+            }
+
+        }
+
+        private static void SaveAssembly(SolidEdgeAssembly.AssemblyDocument assemblyDoc, String logFilePath)
+        {
+            try
+            {
+                if (assemblyDoc.ReadOnly == false)
+                {
+                    assemblyDoc.Save();
+                }
+                
+
+            }
+            catch (Exception ex)
+            {
+                Utlity.Log(ex.Message, logFilePath);
+            }
+
+            try
+            {
+                //if (assemblyDoc.ReadOnly == false)
+                //{
+                //    assemblyDoc.Close(true);
+                //}
+            }
+            catch (Exception ex)
+            {
+                Utlity.Log(ex.Message, logFilePath);
+            }
+
+        }
+
+        private static void SaveAndCloseAssembly(SolidEdgeAssembly.AssemblyDocument assemblyDoc, String logFilePath)
+        {
+            try
+            {
+                if (assemblyDoc.ReadOnly == false)
+                {
+                    assemblyDoc.Save();
+                }
+
+                if (assemblyDoc.ReadOnly == false)
+                {
+                    assemblyDoc.Close();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Utlity.Log(ex.Message, logFilePath);
+            }
+
+            try
+            {
+                //if (assemblyDoc.ReadOnly == false)
+                //{
+                //    assemblyDoc.Close(true);
+                //}
+            }
+            catch (Exception ex)
+            {
+                Utlity.Log(ex.Message, logFilePath);
+            }
+
+        }
+
+
+        private static void savePart(SolidEdgePart.PartDocument partDoc, String logFilePath)
+        {
+            try
+            {
+                if (partDoc.ReadOnly == false)
+                {
+                    partDoc.Save();
+                }
+            }
+            catch (Exception ex)
+            {
+                Utlity.Log(ex.Message, logFilePath);
+            }
+        }
+
+        private static void saveSheet(SolidEdgePart.SheetMetalDocument sheetMetalDoc, String logFilePath)
+        {
+            try
+            {
+                if (sheetMetalDoc.ReadOnly == false)
+                {
+                    sheetMetalDoc.Save();
+                }
+            }
+            catch (Exception ex)
+            {
+                Utlity.Log(ex.Message, logFilePath);
+            }
+        }
+    }
+}

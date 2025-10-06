@@ -1,0 +1,222 @@
+﻿using ExcelSync.utils;
+using SolidEdgeCommunity;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Runtime.InteropServices;
+using System.Text;
+using System.Threading;
+
+namespace ExcelSync.opInterfaces
+{
+    class SolidEdgeUpdateView
+    {
+        public static void SearchDraftFile(String assemblyFileName, String logFilePath)
+        {
+            String searchDrawingsFolder = System.IO.Path.GetDirectoryName(assemblyFileName);
+            Utlity.Log("searchDrawingsFolder: " + searchDrawingsFolder, logFilePath);
+
+            String[] draftFiles = Directory.GetFiles(searchDrawingsFolder, "*", SearchOption.AllDirectories)
+                                         .Select(path => Path.GetFullPath(path))
+                                         .Where(x => (x.EndsWith(".dft", StringComparison.OrdinalIgnoreCase)))
+                                         .ToArray();
+            if (draftFiles == null || draftFiles.Length == 0)
+            {
+                Utlity.Log("SearchDraftFile -  No Draft Files Found ", logFilePath);
+                return;
+            }
+
+            foreach (String draftFile in draftFiles)
+            {
+                try
+                {
+                    Utlity.Log("findOutOfDateDrawing: " + System.DateTime.Now.ToString(), logFilePath);
+                    Thread myThread = new Thread(() => findOutOfDateDrawing(draftFile, logFilePath));
+                    myThread.SetApartmentState(ApartmentState.STA);
+                    myThread.Start();
+                    myThread.Join();
+                }
+                catch (Exception ex)
+                {
+                    Utlity.Log("SolidEdgeUpdateView, findOutOfDateDrawing: " + ex.Message, logFilePath);
+                    return;
+                }
+            }
+
+
+        }
+        [STAThread]
+        public static bool findOutOfDateDrawing(String DraftFileFULLPath, String logFilePath)
+        {
+            Utlity.Log("findOutOfDateDrawing -  DraftFileFULLPath: ", DraftFileFULLPath);
+            SolidEdgeFramework.Documents objDocuments = null;
+            SolidEdgeFramework.Application objApp = SolidEdgeCommunity.SolidEdgeUtils.Connect();
+            if (objApp == null)
+            {
+                Utlity.Log("DEBUG -  objApp is NULL : " + DraftFileFULLPath, logFilePath);
+                return false;
+            }
+
+            SolidEdgeDraft.DraftDocument objDraftDocument = null;
+            objDocuments = objApp.Documents;
+
+            if (objDocuments == null)
+            {
+                Utlity.ResetAlerts(objApp, true, logFilePath);
+                Utlity.Log("DEBUG -  objDocuments is NULL : " + DraftFileFULLPath, logFilePath);
+                return false;
+            }
+
+            try
+            {
+                OleMessageFilter.Register();
+
+            }
+            catch (Exception ex)
+            {
+                Utlity.Log("DEBUG - OleMessageFilter Register : " + DraftFileFULLPath, logFilePath);
+                Utlity.Log(ex.Message, logFilePath);
+            }
+
+
+            try
+            {
+                if (System.IO.File.Exists(DraftFileFULLPath) == true)
+                {
+                    objApp.SetGlobalParameter(SolidEdgeFramework.ApplicationGlobalConstants.seApplicationGlobalOpenAsReadOnlyDftFile, false);
+                    objApp.DisplayAlerts = false;
+                    objDraftDocument = (SolidEdgeDraft.DraftDocument)objDocuments.Open(DraftFileFULLPath);
+                    if (objDraftDocument.ReadOnly == true)
+                    {
+                        bool WriteAccess = false;
+                        objDraftDocument.SeekWriteAccess(out WriteAccess);
+                        if (WriteAccess == false)
+                        {
+                            Utlity.ResetAlerts(objApp, true, logFilePath);
+                            Utlity.Log("Could not get WriteAccess to--" + DraftFileFULLPath, logFilePath);
+                            return false;
+                        }
+                    }
+                }
+                else
+                {
+                    Utlity.ResetAlerts(objApp, true, logFilePath);
+                    Utlity.Log("Draft File Does not Exist " + DraftFileFULLPath, logFilePath);
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                Utlity.ResetAlerts(objApp, true, logFilePath);
+                Utlity.Log("DEBUG - Unable to Open : " + DraftFileFULLPath, logFilePath);
+                Utlity.Log(ex.Message, logFilePath);
+                return false;
+            }
+
+            //Make sure we have a document.
+            if (objDraftDocument != null)
+            {
+                Utlity.Log("------ PROCESS SHEETS ------", logFilePath);
+                // Get a reference to the sheets collection.
+                SolidEdgeDraft.Sheets sheets = objDraftDocument.Sheets;
+                SolidEdgeDraft.Sections sections = objDraftDocument.Sections;
+                SolidEdgeDraft.Sheet ActiveSheet = objDraftDocument.ActiveSheet;
+
+                foreach (SolidEdgeDraft.Sheet sheet in sections.WorkingSection.Sheets)
+                {
+                    SolidEdgeDraft.DrawingViews views = sheet.DrawingViews;
+
+                    if (views == null)
+                    {
+                        Marshal.ReleaseComObject(sheet);
+                        Utlity.Log("No Views in the Sheet: " + sheet.Name, logFilePath);
+                        continue;
+                    }
+                    Utlity.Log("Sheet: " + sheet.Name, logFilePath);
+                    foreach (SolidEdgeDraft.DrawingView vw in views)
+                    {
+                        Utlity.Log("View Name " + vw.Name + "::::" + " View UpToDateStatus " + vw.IsUpToDate, logFilePath);
+                        if (vw.IsUpToDate == false)
+                        {
+                            //Utlity.Log("DraftFileName: " + DraftFileFULLPath + "  Sheet: " + sheet.Name +
+                            //" View Name " + vw.Name + " View UpToDateStatus " + vw.IsUpToDate, outPutFilePath);
+                            //Utlity.Log("DraftFileName: " + SolidEdgeDraftFilePath + "  Sheet: " + sheet.Name                            , outPutFilePath);
+
+                            Utlity.Log("ForceUpdate: " + sheet.Name, logFilePath);
+                            try
+                            {
+                                vw.ForceUpdate();
+                            }
+                            catch (Exception ex)
+                            {
+                                Utlity.Log("ForceUpdate: " + "Exception: " + ex.Message, logFilePath);
+                            }
+                        }
+                        if (vw != null) Marshal.ReleaseComObject(vw);
+                    }
+
+                    if (views != null)
+                    {
+                        Marshal.ReleaseComObject(views);
+                        views = null;
+                    }
+                    Marshal.ReleaseComObject(sheet);
+                }
+
+
+
+
+
+                if (sheets != null)
+                {
+                    Marshal.ReleaseComObject(sheets);
+                    sheets = null;
+                }
+
+                if (sections != null)
+                {
+                    Marshal.ReleaseComObject(sections);
+                    sections = null;
+                }
+
+
+            }
+            else
+            {
+                Utlity.ResetAlerts(objApp, true, logFilePath);
+                Utlity.Log("Replacing Exception: ", logFilePath);
+                throw new System.Exception("No active document.");
+            }
+
+            try
+            {
+                if (objDraftDocument.ReadOnly == false)
+                {
+                    Utlity.Log("DEBUG - Close & Save", logFilePath);
+                    objDraftDocument.Close(true);
+                }
+
+                Marshal.ReleaseComObject(objDraftDocument);
+                //Marshal.FinalReleaseComObject(objApp.Documents);
+                objDraftDocument = null;
+                if (objApp != null) objApp.DisplayAlerts = true;  
+
+            }
+            catch (Exception ex)
+            {
+                Utlity.ResetAlerts(objApp, true, logFilePath);
+                Utlity.Log("DEBUG - Unable to Save the Document : " + ex.Message, logFilePath);
+                return false;
+            }
+
+            finally
+            {
+                OleMessageFilter.Unregister();
+            }
+           
+
+            return true;
+        }
+    }
+}
