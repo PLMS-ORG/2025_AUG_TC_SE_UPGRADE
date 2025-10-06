@@ -38,7 +38,7 @@
     <VSTO_TrustAssembliesLocation>true</VSTO_TrustAssembliesLocation>
     <TargetFrameworkProfile />
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <PublishUrl>D:\2025_AUG_TC_SE_UPGRADE\SEP2025\SVN_ExcelSync\</PublishUrl>
+    <PublishUrl>D:\2025_AUG_TC_SE_UPGRADE\LTC_Upgrade_2025\SEP2025\SVN_ExcelSync\</PublishUrl>
     <InstallUrl />
     <TargetCulture>en</TargetCulture>
     <ApplicationVersion>4.0.0.1</ApplicationVersion>
@@ -164,11 +164,11 @@
       <HintPath>..\packages\Interop.SolidEdge.219.10.0\lib\net45\Interop.SolidEdge.dll</HintPath>
     </Reference>
     <Reference Include="interop.SolidEdgeRevisionManagerLib">
-      <HintPath>..\..\LTC_OCT_2024\LTCMe_TC_Integration\LTCMe_TC_Integration\cs\SE_DLL\interop.SolidEdgeRevisionManagerLib.dll</HintPath>
+      <HintPath>C:\Users\USER\Downloads\interop.SolidEdgeRevisionManagerLib.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="interop.SolidEdgeStructureEditorLib">
-      <HintPath>..\..\LTC_OCT_2024\LTCMe_TC_Integration\LTCMe_TC_Integration\cs\SE_DLL\interop.SolidEdgeStructureEditorLib.dll</HintPath>
+      <HintPath>..\..\SE_DLL\interop.SolidEdgeStructureEditorLib.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="Microsoft.Office.Tools, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
