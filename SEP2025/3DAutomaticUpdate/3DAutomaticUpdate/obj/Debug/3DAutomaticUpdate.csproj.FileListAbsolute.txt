@@ -1,0 +1,12 @@
+D:\R3DE\GitHUB\LTC\DispatcherUtils\DispatcherUtils\3DAutomaticUpdate\3DAutomaticUpdate\bin\Debug\3DAutomaticUpdate.exe.config
+D:\R3DE\GitHUB\LTC\DispatcherUtils\DispatcherUtils\3DAutomaticUpdate\3DAutomaticUpdate\bin\Debug\3DAutomaticUpdate.exe
+D:\R3DE\GitHUB\LTC\DispatcherUtils\DispatcherUtils\3DAutomaticUpdate\3DAutomaticUpdate\bin\Debug\3DAutomaticUpdate.pdb
+D:\R3DE\GitHUB\LTC\DispatcherUtils\DispatcherUtils\3DAutomaticUpdate\3DAutomaticUpdate\bin\Debug\Interop.SolidEdge.dll
+D:\R3DE\GitHUB\LTC\DispatcherUtils\DispatcherUtils\3DAutomaticUpdate\3DAutomaticUpdate\bin\Debug\SolidEdge.Community.dll
+D:\R3DE\GitHUB\LTC\DispatcherUtils\DispatcherUtils\3DAutomaticUpdate\3DAutomaticUpdate\bin\Debug\Interop.SolidEdge.xml
+D:\R3DE\GitHUB\LTC\DispatcherUtils\DispatcherUtils\3DAutomaticUpdate\3DAutomaticUpdate\bin\Debug\SolidEdge.Community.xml
+D:\R3DE\GitHUB\LTC\DispatcherUtils\DispatcherUtils\3DAutomaticUpdate\3DAutomaticUpdate\obj\Debug\3DAutomaticUpdate.csproj.CoreCompileInputs.cache
+D:\R3DE\GitHUB\LTC\DispatcherUtils\DispatcherUtils\3DAutomaticUpdate\3DAutomaticUpdate\obj\Debug\3DAutomaticUpdate.csproj.CopyComplete
+D:\R3DE\GitHUB\LTC\DispatcherUtils\DispatcherUtils\3DAutomaticUpdate\3DAutomaticUpdate\obj\Debug\3DAutomaticUpdate.exe
+D:\R3DE\GitHUB\LTC\DispatcherUtils\DispatcherUtils\3DAutomaticUpdate\3DAutomaticUpdate\obj\Debug\3DAutomaticUpdate.pdb
+D:\R3DE\GitHUB\LTC\DispatcherUtils\DispatcherUtils\3DAutomaticUpdate\3DAutomaticUpdate\obj\Debug\3DAutomaticUpdate.csprojAssemblyReference.cache

@@ -1,0 +1,82 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace _3DAutomaticUpdate.model
+{
+    public class Variable
+    {
+        public Variable()
+        {
+            AddVarToTemplate = false;
+        }
+
+
+
+        [System.ComponentModel.DisplayName("Name")]
+        //[Display(Name = "Name")]
+        public String name { get; set; }
+
+        [System.ComponentModel.DisplayName("System Name")]
+        //[Display(Name = "System Name")]
+        public String systemName { get; set; }
+
+        [System.ComponentModel.DisplayName("DefaultValue")]
+        //[Display(Name = "Value")]
+        public String DefaultValue { get; set; }
+
+        [System.ComponentModel.DisplayName("Value")]
+        //[Display(Name = "Value")]
+        public String value { get; set; }
+
+        [System.ComponentModel.DisplayName("Unit")]
+        //[Display(Name = "Unit")]
+        public String unit { get; set; }
+
+        [System.ComponentModel.DisplayName("Lower Limit")]
+        //[Display(Name = "Lower Limit")]
+        public String rangeLow { get; set; }
+
+        [System.ComponentModel.DisplayName("Condition")]
+        //[Display(Name = "Condition")]
+        public int rangeCondition { get; set; }
+
+        [System.ComponentModel.DisplayName("Upper Limit")]
+        // [Display(Name = "Upper Limit")]
+        public String rangeHigh { get; set; }
+
+        [System.ComponentModel.DisplayName("LOV")]
+        //[Display(Name = "LOV")]
+        public String LOV { get; set; }
+
+        [System.ComponentModel.DisplayName("Formula")]
+        public String Formula { get; set; }
+
+        [System.ComponentModel.DisplayName("Variable Type")]
+        [System.ComponentModel.Bindable(false)]
+        [System.ComponentModel.Browsable(false)]
+        //[Display(Name = "Variable Type")]
+        public String variableType { get; set; }
+
+        [System.ComponentModel.DisplayName("Add Var To Template")]
+        [System.ComponentModel.Bindable(false)]
+        [System.ComponentModel.Browsable(false)]
+        //[Display(Name = "Variable Type")]
+        public bool AddVarToTemplate { get; set; }
+
+        [System.ComponentModel.DisplayName("Add Part To Template")]
+        [System.ComponentModel.Bindable(false)]
+        [System.ComponentModel.Browsable(false)]
+        //[Display(Name = "Variable Type")]
+        public String AddPartToTemplate { get; set; }
+
+        public String UnitType { get; set; }
+
+        [System.ComponentModel.DisplayName("Part Name")]
+        //[Display(Name = "Part Name")]
+        public String PartName { get; set; }
+
+    }
+}

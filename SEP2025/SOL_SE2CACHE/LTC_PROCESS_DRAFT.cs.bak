@@ -1,0 +1,351 @@
+﻿/**
+ * 15-03-2019 Murali Modified to Translate DXF and PDF for all categories. *
+ * 22-03-2019 Murali DXF to be generated for category=Welded Assembly
+ **/
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+
+namespace LTC_SE2CACHE
+{
+    class LTC_PROCESS_DRAFT
+    {
+        //category-cp
+        //static String SHEETMETAL = "Sheetmetal Part";
+        //static String WELDED_ASSEMBLY = "Welded Assembly";
+        //// part-type
+        //static String FABRICATED = "Fabricated";
+        //static String COMMERCIAL = "Commercial";
+
+        //public static void PROCESS_DRAFT_1(String StageDir, String outputFolder, String logFilePath, bool createDXF, bool createPDF)
+        //{
+        //    string[] DraftFiles = Directory.GetFiles(StageDir, "*")
+        //                                 .Select(path => Path.GetFullPath(path))
+        //                                 .Where(x => (x.EndsWith(".dft") || x.EndsWith(".DFT")))
+        //                                 .ToArray();
+        //    if (DraftFiles == null || DraftFiles.Length == 0)
+        //    {
+        //        Console.WriteLine("LTC_PROCESS_DRAFT:- NO DRAFT FILES IDENTIFIED");
+        //        return;
+        //    }
+
+        //    foreach (String draftFileFullPath in DraftFiles)
+        //    {
+
+        //        Utility.Log(draftFileFullPath + "- Starting to Translate..", logFilePath);
+
+
+        //        // 1 AUG 2019 - Dont process ref files
+        //        string draftFileWoExtn = Path.GetFileNameWithoutExtension(draftFileFullPath);
+        //        String draftFileName = Path.GetFileName(draftFileFullPath);
+        //        String itemIDofFile = SOL_SE_SET_PROPERTIES.getProperty("DRAFT", draftFileName, "ITEM_ID");
+        //        if (Program.draftFilesToProcess.Count != 0)
+        //        {
+        //            Utility.Log("\nSOL_PROCESS_DRAFT:- " + draftFileWoExtn + " Checking if draft belongs to ref category with ID/Rev", logFilePath);
+        //            if (Program.draftFilesToProcess.Contains(draftFileWoExtn.ToLower()) == false)
+        //            {
+        //                Utility.Log("LTC_PROCESS_DRAFT:- " + draftFileWoExtn + " belongs to ref category with ID/Rev. ", logFilePath);
+        //                Utility.Log("\nSOL_PROCESS_DRAFT:- " + draftFileWoExtn + " Checking if draft belongs to ref category with ID", logFilePath);
+        //                Utility.Log("LTC_PROCESS_DRAFT:- checking if " + itemIDofFile + " belongs to ref category", logFilePath);
+        //                if (Program.part_Asm_SM_Weld_FilesToProcess.Contains(itemIDofFile.ToLower()) == false)
+        //                {
+        //                    Utility.Log("LTC_PROCESS_DRAFT:- " + itemIDofFile + " belongs to ref category. Skipping ", logFilePath);
+        //                    Program.totalFilesProcessed++;
+        //                    continue;
+        //                }
+        //                else
+        //                    Utility.Log("LTC_PROCESS_DRAFT:- " + itemIDofFile + " does not belong to ref category with ID. ", logFilePath);
+
+        //                //Utility.Log("LTC_PROCESS_DRAFT:- " + draftFileWoExtn + " belongs to ref category. Skipping ", logFilePath);
+        //                //continue;
+        //            }
+        //            else
+        //                Utility.Log("LTC_PROCESS_DRAFT:- " + draftFileWoExtn + " does not belong to ref category with ID/Rev. ", logFilePath);
+        //        }
+        //        else
+        //            Utility.Log("\n LTC_PROCESS_DRAFT:- SEAssyOut.txt is not available ", logFilePath);
+
+
+        //        // 11 OCT 2018 - Dont Process Drafts which have Release Status Count > 0
+        //        String draftFile = Path.GetFileName(draftFileFullPath);
+        //        String Release_Status_Count = SOL_SE_SET_PROPERTIES.getProperty("DRAFT", draftFile, "RELEASE_STATUS");
+        //        int Release_Count = 0;
+        //        try
+        //        {
+        //            Release_Count = int.Parse(Release_Status_Count);
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            Utility.Log("Problem encountered while finding release status of " + itemIDofFile, Program.failureFilePath);
+        //            Utility.Log("LTC_PROCESS_DRAFT:- Could Not Parse the Release Count..Exception: " + draftFile, logFilePath);
+        //            Utility.Log("LTC_PROCESS_DRAFT:- Exception: " + ex.Message, logFilePath);
+        //            Release_Count = 0;
+        //        }
+        //        if (Release_Count > 0 && Utility.IgnoreReleaseStatus.Equals("NO", StringComparison.OrdinalIgnoreCase) == true)
+        //        {
+        //            Utility.Log("LTC_PROCESS_DRAFT:- Skip " + draftFile + " ,Since File Has Release Status Already...", logFilePath);
+        //            Program.totalFilesProcessed++;
+        //            continue;
+        //        }
+
+        //        //19-Oct-2019 If item id and rev id is passed ignore other files (for post release IR, all files need to be downloaded to stage directory)
+        //        if (Program.revIDReceived != null & Program.itemIDRecieved != null)
+        //        {
+        //            string itemIDRevIDFromFile = SOL_SE_SET_PROPERTIES.getProperty("DRAFT", Path.GetFileName(draftFileFullPath), "ITEM_ID") + SOL_SE_SET_PROPERTIES.getProperty("DRAFT", Path.GetFileName(draftFileFullPath), "REV_ID");
+        //            Utility.Log("[ItemID][REVID] :" + itemIDRevIDFromFile, logFilePath);
+
+        //            string onlyItemToProcess = Program.itemIDRecieved + Program.revIDReceived;
+        //            Utility.Log("onlyItemToProcess :" + onlyItemToProcess, logFilePath);
+        //            if (itemIDRevIDFromFile.ToLower().Equals(onlyItemToProcess.ToLower()) == false)
+        //            {
+        //                Program.totalFilesProcessed++;
+        //                continue;
+        //            }
+        //        }
+
+        //        String itemID = SOL_SE_SET_PROPERTIES.getProperty("DRAFT", draftFile, "ITEM_ID");
+        //        if (itemID == null || itemID.Equals("") == true)
+        //        {
+        //            Console.WriteLine("LTC_PROCESS_DRAFT:- Unable to get the Item ID for" + draftFile);
+        //            Program.totalFilesProcessed++;
+        //            continue;
+        //        }
+        //        Console.WriteLine("LTC_PROCESS_DRAFT:- Item_ID:" + itemID);
+        //        String parentType = SOL_SE_SET_PROPERTIES.getParent(itemID);
+        //        Console.WriteLine("LTC_PROCESS_DRAFT:- parentType:" + parentType);
+
+        //        String partType = SOL_SE_SET_PROPERTIES.getProperty("DRAFT", draftFile, "PART_TYPE");
+        //        Console.WriteLine("LTC_PROCESS_DRAFT:- partType:" + partType);
+        //        if (parentType == null || parentType.Equals("") == true)
+        //        {
+        //            Utility.Log("LTC_PROCESS_DRAFT:- parentType is Empty/NULL " + draftFile, logFilePath);
+        //            Program.totalFilesProcessed++;
+        //            continue;
+        //        }
+        //        String Folder = outputFolder;
+        //        String category = SOL_SE_SET_PROPERTIES.getProperty("DRAFT", draftFile, "CATEGORY");
+        //        Console.WriteLine("LTC_PROCESS_DRAFT:- category:" + category);
+        //        if (parentType.Equals("SE Assembly", StringComparison.OrdinalIgnoreCase) == true)
+        //        {
+        //            if (category != null && category.Equals("") == false && category.Equals(WELDED_ASSEMBLY, StringComparison.OrdinalIgnoreCase) == true)
+        //            {
+        //                try
+        //                {
+        //                    if (createDXF == true)
+        //                    {
+        //                        SOL_SE_TRANSLATE dft_Translate = new SOL_SE_TRANSLATE();
+        //                        dft_Translate.SaveDraftAs1STATThread(StageDir, draftFileFullPath, "DXF", logFilePath, Folder, itemID);
+        //                    }
+        //                    else
+        //                        Utility.Log("LTC_PROCESS_DRAFT:- SaveDraftAs1STATThread. DXF generation set to No. Skipping", logFilePath);
+        //                }
+        //                catch (Exception ex)
+        //                {
+        //                    Utility.Log("LTC_PROCESS_DRAFT:- SaveDraftAs1STATThread Exception " + ex.Message, logFilePath);
+        //                    Utility.Log("Could not save dxf for " + itemID, Program.failureFilePath);
+        //                    Program.totalFilesProcessed++;
+        //                    continue;
+        //                }
+
+        //            }
+        //        }
+
+        //        if (parentType.Equals("SE Part", StringComparison.OrdinalIgnoreCase) == true)
+        //        {
+        //            if (partType != null && partType.Equals("") == false && partType.Equals(FABRICATED, StringComparison.OrdinalIgnoreCase) == true)
+        //            {
+        //                try
+        //                {
+        //                    if (createDXF == true)
+        //                    {
+        //                        SOL_SE_TRANSLATE dft_Translate = new SOL_SE_TRANSLATE();
+        //                        dft_Translate.SaveDraftAs1STATThread(StageDir, draftFileFullPath, "DXF", logFilePath, Folder, itemID);
+        //                    }
+        //                    else
+        //                        Utility.Log("LTC_PROCESS_DRAFT:- SaveDraftAs1STATThread. DXF generation set to No. Skipping", logFilePath);
+        //                }
+        //                catch (Exception ex)
+        //                {
+        //                    Utility.Log("LTC_PROCESS_DRAFT:- SaveDraftAs1STATThread Exception " + ex.Message, logFilePath);
+        //                    Utility.Log("Could not save dxf for " + itemID, Program.failureFilePath);
+        //                    Program.totalFilesProcessed++;
+        //                    continue;
+        //                }
+        //            }
+        //        }
+
+        //        if (parentType.Equals("SHEETMETAL", StringComparison.OrdinalIgnoreCase) == true)
+        //        {
+        //            if (partType != null && partType.Equals("") == false && partType.Equals(FABRICATED, StringComparison.OrdinalIgnoreCase) == true)
+        //            {
+        //                try
+        //                {
+        //                    if (createDXF == true)
+        //                    {
+        //                        SOL_SE_TRANSLATE dft_Translate = new SOL_SE_TRANSLATE();
+        //                        dft_Translate.SaveDraftAs1STATThread(StageDir, draftFileFullPath, "DXF", logFilePath, Folder, itemID);
+        //                    }
+        //                    else
+        //                        Utility.Log("LTC_PROCESS_DRAFT:- SaveDraftAs1STATThread. DXF generation set to No. Skipping", logFilePath);
+        //                }
+        //                catch (Exception ex)
+        //                {
+        //                    Utility.Log("LTC_PROCESS_DRAFT:- SaveDraftAs1STATThread Exception " + ex.Message, logFilePath);
+        //                    Utility.Log("Could not save dxf for " + itemID, Program.failureFilePath);
+        //                    Program.totalFilesProcessed++;
+        //                    continue;
+        //                }
+        //            }
+        //        }
+
+        //        try
+        //        {
+        //            if (createPDF == true)
+        //            {
+        //                SOL_SE_TRANSLATE dft_Translate = new SOL_SE_TRANSLATE();
+        //                dft_Translate.SaveDraftAs1STATThread(StageDir, draftFileFullPath, "PDF", logFilePath, Folder, itemID);
+        //            }
+        //            else
+        //                Utility.Log("LTC_PROCESS_DRAFT:- SaveDraftAs1STATThread. PDF generation set to No. Skipping", logFilePath);
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            Utility.Log("LTC_PROCESS_DRAFT:- SaveDraftAs1STATThread Exception " + ex.Message, logFilePath);
+        //            Utility.Log("Could not save pdf for " + itemID, Program.failureFilePath);
+        //            Program.totalFilesProcessed++;
+        //            continue;
+        //        }
+
+
+
+
+
+        //        Utility.Log(draftFileFullPath + "-Done Translation..", logFilePath);
+        //        Program.totalFilesProcessed++;
+        //    }
+
+
+
+        //}
+
+
+        public static void PROCESS_DRAFT_2(String StageDir, String outputFolder, String logFilePath, bool createDXF, bool createPDF)
+        {
+            string[] DraftFiles = Directory.GetFiles(StageDir, "*")
+                                         .Select(path => Path.GetFullPath(path))
+                                         .Where(x => (x.EndsWith(".dft") || x.EndsWith(".DFT")))
+                                         .ToArray();
+            if (DraftFiles == null || DraftFiles.Length == 0)
+            {
+                Console.WriteLine("LTC_PROCESS_DRAFT:- NO DRAFT FILES IDENTIFIED");
+                return;
+            }
+
+            foreach (String draftFileFullPath in DraftFiles)
+            {
+
+                Utility.Log(draftFileFullPath + "- Starting to Translate..", logFilePath);
+                String draftFile = Path.GetFileName(draftFileFullPath);
+                String Folder = outputFolder;
+
+                String itemID = LTC_SE_SET_PROPERTIES.getProperty("DRAFT", draftFile, "ITEM_ID");
+                if (itemID == null || itemID.Equals("") == true)
+                {
+                    Console.WriteLine("LTC_PROCESS_DRAFT:- Unable to get the Item ID for" + draftFile);
+                    Program.totalFilesProcessed++;
+                    continue;
+                }
+                Console.WriteLine("LTC_PROCESS_DRAFT:- Item_ID:" + itemID);
+
+                String parentType = LTC_SE_SET_PROPERTIES.getParent(itemID);
+                Console.WriteLine("LTC_PROCESS_DRAFT:- parentType:" + parentType);
+
+                // 1 AUG 2019 - Dont process ref files
+                string draftFileWoExtn = Path.GetFileNameWithoutExtension(draftFileFullPath);
+                String draftFileName = Path.GetFileName(draftFileFullPath);
+                String itemIDofFile = itemID;
+                if (Program.draftFilesToProcess.Count != 0)
+                {
+                    Utility.Log("\nLTC_PROCESS_DRAFT:- " + draftFileWoExtn + " Checking if draft belongs to ref category with ID/Rev", logFilePath);
+                    if (Program.draftFilesToProcess.Contains(draftFileWoExtn.ToLower()) == false)
+                    {
+                        Utility.Log("LTC_PROCESS_DRAFT:- " + draftFileWoExtn + " belongs to ref category with ID/Rev. ", logFilePath);
+                        Utility.Log("\nLTC_PROCESS_DRAFT:- " + draftFileWoExtn + " Checking if draft belongs to ref category with ID", logFilePath);
+                        Utility.Log("LTC_PROCESS_DRAFT:- checking if " + itemIDofFile + " belongs to ref category", logFilePath);
+                        if (Program.part_Asm_SM_Weld_FilesToProcess.Contains(itemIDofFile.ToLower()) == false)
+                        {
+                            Utility.Log("LTC_PROCESS_DRAFT:- " + itemIDofFile + " belongs to ref category. Skipping ", logFilePath);
+                            Program.totalFilesProcessed++;
+                            continue;
+                        }
+                        else
+                            Utility.Log("LTC_PROCESS_DRAFT:- " + itemIDofFile + " does not belong to ref category with ID. ", logFilePath);
+
+                        //Utility.Log("LTC_PROCESS_DRAFT:- " + draftFileWoExtn + " belongs to ref category. Skipping ", logFilePath);
+                        //continue;
+                    }
+                    else
+                        Utility.Log("LTC_PROCESS_DRAFT:- " + draftFileWoExtn + " does not belong to ref category with ID/Rev. ", logFilePath);
+                }
+                else
+                    Utility.Log("\n LTC_PROCESS_DRAFT:- SEAssyOut.txt is not available ", logFilePath);
+
+                SOL_SE_TRANSLATE dft_Translate = new SOL_SE_TRANSLATE();
+                dft_Translate.SaveDraftAs1STATThread(draftFileFullPath, logFilePath, Folder, itemID, parentType);
+
+               
+
+                Utility.Log(draftFileFullPath + "-Done Translation..", logFilePath);
+                Program.totalFilesProcessed++;
+
+                String ProjectID = LTC_SE_SET_PROPERTIES.getProperty("DRAFT", draftFile, "PROJECT");
+                if (ProjectID == null || ProjectID.Equals("") == true || ProjectID.Equals(" ") == true)
+                {
+                    Console.WriteLine("LTC_PROCESS_DRAFT:- Unable to get the ProjectID/No ProjectID for" + draftFile);
+                    Program.totalFilesProcessed++;
+                    continue;
+                }
+
+                String[] ProjectIdArray = ProjectID.Split(',');
+                String fileName = Path.GetFileNameWithoutExtension(draftFileFullPath);
+                String pdfFilePath = Path.Combine(outputFolder, fileName + ".PDF");
+                //String dxfFilePath = Path.Combine(outputFolder, fileName + ".dxf");
+
+                foreach (String projectID in ProjectIdArray)
+                {
+                    Console.WriteLine("LTC_PROCESS_DRAFT:- ProjectID:" + projectID);
+                    
+                    String pdfFileNewPath = Path.Combine(outputFolder, fileName + "-" + projectID+ ".PDF");
+                    //String dxfFileNewPath = Path.Combine(outputFolder, fileName + "-" + projectID + ".dxf");
+                    if (File.Exists(pdfFilePath) == true)
+                    {
+                        File.Copy(pdfFilePath, pdfFileNewPath);
+                        PDFWatermark.PDFStamp(createPDF, logFilePath, StageDir, pdfFileNewPath, projectID);
+                    }
+                    //if (File.Exists(dxfFilePath) == true)
+                    //{
+                    //    File.Copy(dxfFilePath, dxfFileNewPath);                        
+                    //}
+                }
+
+                Utility.Log("Deleting the Original PDF file.." + pdfFilePath, logFilePath);
+                //Utility.Log("Deleting the Original DXF file.." + dxfFilePath, logFilePath);
+                try
+                {
+                    File.Delete(pdfFilePath);
+                    //File.Delete(dxfFilePath);
+                }
+                catch (Exception ex)
+                {
+                    Utility.Log("Exception in Deleting the Original PDF file.." + pdfFilePath, logFilePath);
+                    //Utility.Log("Exception in Deleting the Original DXF file.." + dxfFilePath, logFilePath);
+                }
+            }
+
+        }
+    }
+}

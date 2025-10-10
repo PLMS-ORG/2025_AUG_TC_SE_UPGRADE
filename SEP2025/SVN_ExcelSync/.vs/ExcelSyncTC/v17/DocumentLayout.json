@@ -105,8 +105,12 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 6,
+          "SelectedChildIndex": 7,
           "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{269a02dc-6af8-11d3-bdc4-00c04f688e50}"
+            },
             {
               "$type": "Document",
               "DocumentIndex": 2,
@@ -117,7 +121,8 @@
               "RelativeToolTip": "ExcelSyncTC\\opInterfaces\\SolidEdgeInterface.cs",
               "ViewState": "AgIAAE8CAAAAAAAAAAAIwF0CAAASAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-08T04:27:21.613Z"
+              "WhenOpened": "2025-09-08T04:27:21.613Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -129,7 +134,8 @@
               "RelativeToolTip": "ExcelSyncTC\\TC\\TcAdaptor.cs",
               "ViewState": "AgIAAIYBAAAAAAAAAAAswI0BAAAXAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-08T04:26:55.476Z"
+              "WhenOpened": "2025-09-08T04:26:55.476Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -141,7 +147,8 @@
               "RelativeToolTip": "ExcelSyncTC\\clientx\\Session.cs",
               "ViewState": "AgIAAA8BAAAAAAAAAIA4wCEBAAAXAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-08T04:25:30.026Z"
+              "WhenOpened": "2025-09-08T04:25:30.026Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -153,7 +160,8 @@
               "RelativeToolTip": "ExcelSyncTC\\SyncDwg.cs",
               "ViewState": "AgIAAH0AAAAAAAAAAAAnwIwAAAA0AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-08T04:24:58.367Z"
+              "WhenOpened": "2025-09-08T04:24:58.367Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -175,7 +183,8 @@
               "ToolTip": "D:\\2025_AUG_TC_SE_UPGRADE\\SEP2025\\SVN_ExcelSync\\ExcelSyncTC\\Ribbon1.resx",
               "RelativeToolTip": "ExcelSyncTC\\Ribbon1.resx",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001005|",
-              "WhenOpened": "2025-05-15T04:46:00.789Z"
+              "WhenOpened": "2025-05-15T04:46:00.789Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -200,7 +209,8 @@
               "RelativeToolTip": "ExcelSyncTC\\opInterfaces\\ExcelInterface.cs",
               "ViewState": "AgIAABMAAAAAAAAAAAAgwAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-28T14:17:16.59Z"
+              "WhenOpened": "2025-04-28T14:17:16.59Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -212,7 +222,8 @@
               "RelativeToolTip": "ExcelSyncTC\\model\\Variable.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-28T14:17:15.21Z"
+              "WhenOpened": "2025-04-28T14:17:15.21Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -224,7 +235,8 @@
               "RelativeToolTip": "ExcelSyncTC\\model\\FeatureLine.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-28T14:17:13.924Z"
+              "WhenOpened": "2025-04-28T14:17:13.924Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -236,7 +248,8 @@
               "RelativeToolTip": "ExcelSyncTC\\utils\\Utlity.cs",
               "ViewState": "AgIAAGIAAAAAAAAAAAAawGgAAABAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-25T13:35:00.359Z"
+              "WhenOpened": "2025-04-25T13:35:00.359Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -248,7 +261,8 @@
               "RelativeToolTip": "ExcelSyncTC\\Ribbon1.Designer.cs",
               "ViewState": "AgIAAAUAAAAAAAAAAAAQwAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-25T13:34:27.071Z"
+              "WhenOpened": "2025-04-25T13:34:27.071Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -256,10 +270,11 @@
               "Title": "ExcelSyncDialog.cs [Design]",
               "DocumentMoniker": "D:\\2025_AUG_TC_SE_UPGRADE\\SEP2025\\SVN_ExcelSync\\ExcelSyncTC\\ExcelSyncDialog.cs",
               "RelativeDocumentMoniker": "ExcelSyncTC\\ExcelSyncDialog.cs",
-              "ToolTip": "D:\\Github_desktop\\LTCme\\TC14_SE2023\\SVN_ExcelSync\\ExcelSyncTC\\ExcelSyncDialog.cs [Design]",
-              "RelativeToolTip": "..\\..\\..\\Github_desktop\\LTCme\\TC14_SE2023\\SVN_ExcelSync\\ExcelSyncTC\\ExcelSyncDialog.cs [Design]",
+              "ToolTip": "D:\\2025_AUG_TC_SE_UPGRADE\\SEP2025\\SVN_ExcelSync\\ExcelSyncTC\\ExcelSyncDialog.cs [Design]",
+              "RelativeToolTip": "ExcelSyncTC\\ExcelSyncDialog.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-25T13:33:59.061Z"
+              "WhenOpened": "2025-04-25T13:33:59.061Z",
+              "EditorCaption": " [Design]"
             },
             {
               "$type": "Document",
@@ -270,7 +285,8 @@
               "ToolTip": "D:\\2025_AUG_TC_SE_UPGRADE\\SEP2025\\SVN_ExcelSync\\ExcelSyncTC\\icons_sync.png",
               "RelativeToolTip": "ExcelSyncTC\\icons_sync.png",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001533|",
-              "WhenOpened": "2025-04-25T13:33:01.64Z"
+              "WhenOpened": "2025-04-25T13:33:01.64Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -278,10 +294,11 @@
               "Title": "MyCustomDialog.cs [Design]",
               "DocumentMoniker": "D:\\2025_AUG_TC_SE_UPGRADE\\SEP2025\\SVN_ExcelSync\\ExcelSyncTC\\MyCustomDialog.cs",
               "RelativeDocumentMoniker": "ExcelSyncTC\\MyCustomDialog.cs",
-              "ToolTip": "D:\\Github_desktop\\LTCme\\TC14_SE2023\\SVN_ExcelSync\\ExcelSyncTC\\MyCustomDialog.cs [Design]",
-              "RelativeToolTip": "..\\..\\..\\Github_desktop\\LTCme\\TC14_SE2023\\SVN_ExcelSync\\ExcelSyncTC\\MyCustomDialog.cs [Design]",
+              "ToolTip": "D:\\2025_AUG_TC_SE_UPGRADE\\SEP2025\\SVN_ExcelSync\\ExcelSyncTC\\MyCustomDialog.cs [Design]",
+              "RelativeToolTip": "ExcelSyncTC\\MyCustomDialog.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-25T13:31:57.329Z"
+              "WhenOpened": "2025-04-25T13:31:57.329Z",
+              "EditorCaption": " [Design]"
             },
             {
               "$type": "Document",
@@ -293,7 +310,8 @@
               "RelativeToolTip": "ExcelSyncTC\\packages.config",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000601|",
-              "WhenOpened": "2025-04-25T13:31:44.523Z"
+              "WhenOpened": "2025-04-25T13:31:44.523Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -305,7 +323,8 @@
               "RelativeToolTip": "ExcelSyncTC\\clientx\\AppXCredentialManager.cs",
               "ViewState": "AgIAAA8AAAAAAAAAAAAAAA4AAAAcAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-25T13:19:20.358Z"
+              "WhenOpened": "2025-04-25T13:19:20.358Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -317,7 +336,8 @@
               "RelativeToolTip": "ExcelSyncTC\\controller\\ExcelData.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-25T13:17:33.931Z"
+              "WhenOpened": "2025-04-25T13:17:33.931Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -329,7 +349,8 @@
               "RelativeToolTip": "ExcelSyncTC\\SyncDwg.Designer.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAABlAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-25T12:43:30.792Z"
+              "WhenOpened": "2025-04-25T12:43:30.792Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -340,7 +361,8 @@
               "ToolTip": "D:\\2025_AUG_TC_SE_UPGRADE\\SEP2025\\SVN_ExcelSync\\ExcelSyncTC\\SyncDwg.resx",
               "RelativeToolTip": "ExcelSyncTC\\SyncDwg.resx",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001005|",
-              "WhenOpened": "2025-04-25T12:43:24.889Z"
+              "WhenOpened": "2025-04-25T12:43:24.889Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -352,7 +374,8 @@
               "RelativeToolTip": "ExcelSyncTC\\controller\\SolidEdgeData.cs",
               "ViewState": "AgIAALcAAAAAAAAAAAAcwDwAAAAiAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-25T12:42:45.172Z"
+              "WhenOpened": "2025-04-25T12:42:45.172Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -364,7 +387,8 @@
               "RelativeToolTip": "ExcelSyncTC\\controller\\ExcelReadFeatures.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-25T12:42:40.877Z"
+              "WhenOpened": "2025-04-25T12:42:40.877Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -376,7 +400,8 @@
               "RelativeToolTip": "ExcelSyncTC\\clientx\\AppXRequestListener.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-25T12:42:26.136Z"
+              "WhenOpened": "2025-04-25T12:42:26.136Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -388,7 +413,8 @@
               "RelativeToolTip": "ExcelSyncTC\\controller\\MasterAssemblyReader.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-25T12:15:46.499Z"
+              "WhenOpened": "2025-04-25T12:15:46.499Z",
+              "EditorCaption": ""
             }
           ]
         }

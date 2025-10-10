@@ -1,0 +1,13 @@
+D:\2025_AUG_TC_SE_UPGRADE\SEP2025\3DAutomaticUpdate\3DAutomaticUpdate\bin\x64\Debug\3DAutomaticUpdate.exe.config
+D:\2025_AUG_TC_SE_UPGRADE\SEP2025\3DAutomaticUpdate\3DAutomaticUpdate\bin\x64\Debug\3DAutomaticUpdate.exe
+D:\2025_AUG_TC_SE_UPGRADE\SEP2025\3DAutomaticUpdate\3DAutomaticUpdate\bin\x64\Debug\3DAutomaticUpdate.pdb
+D:\2025_AUG_TC_SE_UPGRADE\SEP2025\3DAutomaticUpdate\3DAutomaticUpdate\bin\x64\Debug\Interop.SolidEdge.dll
+D:\2025_AUG_TC_SE_UPGRADE\SEP2025\3DAutomaticUpdate\3DAutomaticUpdate\bin\x64\Debug\SolidEdge.Community.dll
+D:\2025_AUG_TC_SE_UPGRADE\SEP2025\3DAutomaticUpdate\3DAutomaticUpdate\bin\x64\Debug\Interop.SolidEdge.xml
+D:\2025_AUG_TC_SE_UPGRADE\SEP2025\3DAutomaticUpdate\3DAutomaticUpdate\bin\x64\Debug\SolidEdge.Community.xml
+D:\2025_AUG_TC_SE_UPGRADE\SEP2025\3DAutomaticUpdate\3DAutomaticUpdate\obj\x64\Debug\3DAutomaticUpdate.csproj.AssemblyReference.cache
+D:\2025_AUG_TC_SE_UPGRADE\SEP2025\3DAutomaticUpdate\3DAutomaticUpdate\obj\x64\Debug\3DAutomaticUpdate.csproj.ResolveComReference.cache
+D:\2025_AUG_TC_SE_UPGRADE\SEP2025\3DAutomaticUpdate\3DAutomaticUpdate\obj\x64\Debug\3DAutomaticUpdate.csproj.CoreCompileInputs.cache
+D:\2025_AUG_TC_SE_UPGRADE\SEP2025\3DAutomaticUpdate\3DAutomaticUpdate\obj\x64\Debug\3DAutomaticUpdate.csproj.CopyComplete
+D:\2025_AUG_TC_SE_UPGRADE\SEP2025\3DAutomaticUpdate\3DAutomaticUpdate\obj\x64\Debug\3DAutomaticUpdate.exe
+D:\2025_AUG_TC_SE_UPGRADE\SEP2025\3DAutomaticUpdate\3DAutomaticUpdate\obj\x64\Debug\3DAutomaticUpdate.pdb

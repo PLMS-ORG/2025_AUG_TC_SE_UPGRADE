@@ -1,0 +1,24 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace _3DAutomaticUpdate.model
+{
+    public class FeatureLine
+    {
+        public String EdgeBarName { get; set; }
+        public String SystemName { get; set; }
+        public String FeatureName { get; set; }
+
+        [System.ComponentModel.DisplayName("PartName")]
+        public String PartName { get; set; }
+        public String Formula { get; set; }
+        public String IsFeatureEnabled { get; set; }
+
+        public String SuppressionEnabled { get; set; }
+
+    }
+
+}
