@@ -1,0 +1,10 @@
+D:\GitHub\LTC\2025_AUG_TC_SE_UPGRADE\SEP2025\2DAutomaticUpdate\2DAutomaticUpdate\bin\x64\Debug\2DAutomaticUpdate.exe.config
+D:\GitHub\LTC\2025_AUG_TC_SE_UPGRADE\SEP2025\2DAutomaticUpdate\2DAutomaticUpdate\bin\x64\Debug\2DAutomaticUpdate.exe
+D:\GitHub\LTC\2025_AUG_TC_SE_UPGRADE\SEP2025\2DAutomaticUpdate\2DAutomaticUpdate\bin\x64\Debug\2DAutomaticUpdate.pdb
+D:\GitHub\LTC\2025_AUG_TC_SE_UPGRADE\SEP2025\2DAutomaticUpdate\2DAutomaticUpdate\bin\x64\Debug\Interop.SolidEdge.dll
+D:\GitHub\LTC\2025_AUG_TC_SE_UPGRADE\SEP2025\2DAutomaticUpdate\2DAutomaticUpdate\bin\x64\Debug\SolidEdge.Community.dll
+D:\GitHub\LTC\2025_AUG_TC_SE_UPGRADE\SEP2025\2DAutomaticUpdate\2DAutomaticUpdate\obj\x64\Debug\2DAutomaticUpdate.csproj.AssemblyReference.cache
+D:\GitHub\LTC\2025_AUG_TC_SE_UPGRADE\SEP2025\2DAutomaticUpdate\2DAutomaticUpdate\obj\x64\Debug\2DAutomaticUpdate.csproj.CoreCompileInputs.cache
+D:\GitHub\LTC\2025_AUG_TC_SE_UPGRADE\SEP2025\2DAutomaticUpdate\2DAutomaticUpdate\obj\x64\Debug\2DAutoma.419C888D.Up2Date
+D:\GitHub\LTC\2025_AUG_TC_SE_UPGRADE\SEP2025\2DAutomaticUpdate\2DAutomaticUpdate\obj\x64\Debug\2DAutomaticUpdate.exe
+D:\GitHub\LTC\2025_AUG_TC_SE_UPGRADE\SEP2025\2DAutomaticUpdate\2DAutomaticUpdate\obj\x64\Debug\2DAutomaticUpdate.pdb

@@ -1,0 +1,473 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{06D62720-D6EB-41DC-85A8-B9AAC6366F95}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>AddToTc</RootNamespace>
+    <AssemblyName>CTD_Proj</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\ARM64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>ARM64</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|ARM64'">
+    <OutputPath>bin\ARM64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>ARM64</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>CDAT_BulkUploader.Program</StartupObject>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="CTD\TCUtils.cs" />
+    <Compile Include="CTD\CreoUtilitySession.cs" />
+    <Compile Include="CTD\DownLoadDataSetNameReference.cs" />
+    <Compile Include="CTD\Property.cs" />
+    <Compile Include="CTD\SanitizeXL_PostClone.cs" />
+    <Compile Include="CTD\SEECAdaptor.cs" />
+    <Compile Include="CTD\SEECCTD.cs" />
+    <Compile Include="CTD\Utlity.cs" />
+    <Compile Include="CTD.cs" />
+    <Compile Include="Teamccenter\Tc_ObjectPolicy.cs" />
+    <Compile Include="Teamccenter\Tc_Services.cs" />
+    <Compile Include="clientx\AppXCredentialManager.cs" />
+    <Compile Include="clientx\AppXExceptionHandler.cs" />
+    <Compile Include="clientx\AppXModelEventListener.cs" />
+    <Compile Include="clientx\AppXPartialErrorListener.cs" />
+    <Compile Include="clientx\AppXRequestListener.cs" />
+    <Compile Include="clientx\Session.cs" />
+    <Compile Include="Log\ErrorType.cs" />
+    <Compile Include="Log\log.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Utils\Constants.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="bin\Debug\DownloadFile.vshost.exe" />
+    <Content Include="libs\Ads0SoaAdsFoundationStrong.dll" />
+    <Content Include="libs\Apb0SoaStrongModelAttrParmBase.dll" />
+    <Content Include="libs\Att0SoaAttrTargetMgmtStrong.dll" />
+    <Content Include="libs\Att0SoaAttrTargetMgmtTypes.dll" />
+    <Content Include="libs\Att0SoaStrongModelAttrTargetMgmt.dll" />
+    <Content Include="libs\CAE0SoaSimProcStrong.dll" />
+    <Content Include="libs\CAE0SoaSimProcTypes.dll" />
+    <Content Include="libs\Cba1SoaCbaExtStrong.dll" />
+    <Content Include="libs\Cba1SoaCbaExtTypes.dll" />
+    <Content Include="libs\Cba1SoaStrongModelCbaExt.dll" />
+    <Content Include="libs\Cbm0SoaColorBomPmmStrong.dll" />
+    <Content Include="libs\Cbm0SoaColorBomPmmTypes.dll" />
+    <Content Include="libs\Cbm0SoaStrongModelColorBomPmm.dll" />
+    <Content Include="libs\Cfg0SoaConfiguratorStrong.dll" />
+    <Content Include="libs\Cfg0SoaConfiguratorTypes.dll" />
+    <Content Include="libs\Cfg0SoaStrongModelConfigurator.dll" />
+    <Content Include="libs\Civ0SoaContMgmtS1000D40Strong.dll" />
+    <Content Include="libs\Civ0SoaContMgmtS1000D40Types.dll" />
+    <Content Include="libs\Clr0SoaColorAppearanceStrong.dll" />
+    <Content Include="libs\Clr0SoaColorAppearanceTypes.dll" />
+    <Content Include="libs\Clr0SoaStrongModelColorAppearance.dll" />
+    <Content Include="libs\Clr1SoaStrongModelColorRule.dll" />
+    <Content Include="libs\Cls0SoaClassificationCoreStrong.dll" />
+    <Content Include="libs\Cls0SoaClassificationCoreTypes.dll" />
+    <Content Include="libs\CoCreate.OsdmObjects.dll" />
+    <Content Include="libs\CoCreate.OsdmServer.dll" />
+    <Content Include="libs\Cpd0SoaCpdCoreStrong.dll" />
+    <Content Include="libs\Cpd0SoaCpdCoreTypes.dll" />
+    <Content Include="libs\Crt0SoaStrongModelValidationContract.dll" />
+    <Content Include="libs\Crt0SoaValidationContractStrong.dll" />
+    <Content Include="libs\Crt0SoaValidationContractTypes.dll" />
+    <Content Include="libs\Esm0SoaESMBaseStrong.dll" />
+    <Content Include="libs\Esm0SoaESMBaseTypes.dll" />
+    <Content Include="libs\FCCNetClientProxy.dll" />
+    <Content Include="libs\FCCNetClientProxy64.dll" />
+    <Content Include="libs\Fdp0SoaFourDPlanningStrong.dll" />
+    <Content Include="libs\Fdp0SoaFourDPlanningTypes.dll" />
+    <Content Include="libs\Fdp0SoaStrongModelFourDPlanning.dll" />
+    <Content Include="libs\FileManagement.exe" />
+    <Content Include="libs\FileManagement.pdb" />
+    <Content Include="libs\FileManagement.vshost.exe" />
+    <Content Include="libs\FMSNetTicket.dll" />
+    <Content Include="libs\Fnd0SoaAuditManagerStrong.dll" />
+    <Content Include="libs\Fnd0SoaAuditManagerTypes.dll" />
+    <Content Include="libs\Fnd0SoaConfigFilterCriteriaStrong.dll" />
+    <Content Include="libs\Fnd0SoaConfigFilterCriteriaTypes.dll" />
+    <Content Include="libs\Fnd0SoaDiagrammingStrong.dll" />
+    <Content Include="libs\Fnd0SoaDiagrammingTypes.dll" />
+    <Content Include="libs\Fnd0SoaEditContextStrong.dll" />
+    <Content Include="libs\Fnd0SoaEditContextTypes.dll" />
+    <Content Include="libs\Fnd0SoaNotificationStrong.dll" />
+    <Content Include="libs\Fnd0SoaNotificationTypes.dll" />
+    <Content Include="libs\Fnd0SoaQualificationStrong.dll" />
+    <Content Include="libs\Fnd0SoaQualificationTypes.dll" />
+    <Content Include="libs\Fnd0SoaUiConfigStrong.dll" />
+    <Content Include="libs\Fnd0SoaUiConfigTypes.dll" />
+    <Content Include="libs\FSCNetClientProxy.dll" />
+    <Content Include="libs\Lgt0SoaLogisticsStrong.dll" />
+    <Content Include="libs\Lgt0SoaLogisticsTypes.dll" />
+    <Content Include="libs\Lgt0SoaStrongModelLogistics.dll" />
+    <Content Include="libs\Lis0SoaLdfStrong.dll" />
+    <Content Include="libs\Lis0SoaLdfTypes.dll" />
+    <Content Include="libs\Lis0SoaStrongModelLdf.dll" />
+    <Content Include="libs\log4net.1.2.10\lib\1.0\log4net.dll" />
+    <Content Include="libs\log4net.1.2.10\lib\1.0\log4net.xml" />
+    <Content Include="libs\log4net.1.2.10\lib\1.1\log4net.dll" />
+    <Content Include="libs\log4net.1.2.10\lib\1.1\log4net.xml" />
+    <Content Include="libs\log4net.1.2.10\lib\2.0\log4net.dll" />
+    <Content Include="libs\log4net.1.2.10\lib\2.0\log4net.xml" />
+    <Content Include="libs\Mat1SoaMaterialMgmtStrong.dll" />
+    <Content Include="libs\Mat1SoaMaterialMgmtTypes.dll" />
+    <Content Include="libs\Mci0SoaPMIManagementStrong.dll" />
+    <Content Include="libs\Mci0SoaPMIManagementTypes.dll" />
+    <Content Include="libs\Mdl0SoaModelCoreStrong.dll" />
+    <Content Include="libs\Mdl0SoaModelCoreTypes.dll" />
+    <Content Include="libs\Mei0SoaMESIntegStrong.dll" />
+    <Content Include="libs\Mei0SoaMESIntegTypes.dll" />
+    <Content Include="libs\Mei0SoaStrongModelMESInteg.dll" />
+    <Content Include="libs\Ptn0SoaPartitionStrong.dll" />
+    <Content Include="libs\Ptn0SoaPartitionTypes.dll" />
+    <Content Include="libs\ReadMe.txt" />
+    <Content Include="libs\SAS0SoaStrongModelServiceAutomatedScheduling.dll" />
+    <Content Include="libs\SAS0SoaSvcAutoSchedulingStrong.dll" />
+    <Content Include="libs\SAS0SoaSvcAutoSchedulingTypes.dll" />
+    <Content Include="libs\Sci0SoaIMDSIntegrationStrong.dll" />
+    <Content Include="libs\Sci0SoaIMDSIntegrationTypes.dll" />
+    <Content Include="libs\Scp0SoaSubsCmplStrong.dll" />
+    <Content Include="libs\Scp0SoaSubsCmplTypes.dll" />
+    <Content Include="libs\SSF0SoaServiceForecastingStrong.dll" />
+    <Content Include="libs\SSF0SoaServiceForecastingTypes.dll" />
+    <Content Include="libs\SSF0SoaStrongModelServiceForecasting.dll" />
+    <Content Include="libs\SSS0SoaStrongModelServiceScheduling.dll" />
+    <Content Include="libs\SSS0SoaSvcSchedulingStrong.dll" />
+    <Content Include="libs\SSS0SoaSvcSchedulingTypes.dll" />
+    <Content Include="libs\TC3SoaFolderManagementStrong.dll" />
+    <Content Include="libs\TC3SoaFolderManagementTypes.dll" />
+    <Content Include="libs\TcMemBindingv100.dll" />
+    <Content Include="libs\TcMemBindingv10064.dll" />
+    <Content Include="libs\TcMemNetBinding.dll" />
+    <Content Include="libs\TcMemNetBinding64.dll" />
+    <Content Include="libs\TcMemNetBindingInterface.dll" />
+    <Content Include="libs\TcMemNetBindingInterface40.dll" />
+    <Content Include="libs\TcServerBindingv100.dll" />
+    <Content Include="libs\TcServerBindingv10064.dll" />
+    <Content Include="libs\TcServerNetBinding.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="libs\FileManagement.vshost.exe.manifest" />
+    <None Include="libs\log4net.1.2.10\log4net.1.2.10.nupkg" />
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="bin\Release\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="As0SoaAspCoreStrong">
+      <HintPath>..\..\..\..\Users\wntx64\soa_client\net\netstandard2.0\As0SoaAspCoreStrong.dll</HintPath>
+    </Reference>
+    <Reference Include="FCCNetClientProxy">
+      <HintPath>..\..\..\..\Users\wntx64\soa_client\net\net48\FCCNetClientProxy.dll</HintPath>
+    </Reference>
+    <Reference Include="FMSNetTicket">
+      <HintPath>..\..\..\..\Users\wntx64\soa_client\net\netstandard2.0\FMSNetTicket.dll</HintPath>
+    </Reference>
+    <Reference Include="FSCNetClientProxy">
+      <HintPath>..\..\..\..\Users\wntx64\soa_client\net\netstandard2.0\FSCNetClientProxy.dll</HintPath>
+    </Reference>
+    <Reference Include="Interop.SolidEdge">
+      <HintPath>SELib\Interop.SolidEdge.dll</HintPath>
+    </Reference>
+    <Reference Include="interop.SolidEdgeRevisionManagerLib">
+      <HintPath>..\..\SE_DLL\interop.SolidEdgeRevisionManagerLib.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="interop.SolidEdgeStructureEditorLib">
+      <HintPath>..\..\SE_DLL\interop.SolidEdgeStructureEditorLib.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="log4net">
+      <HintPath>libs\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Bcl.AsyncInterfaces.1.0.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.HashCode, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Bcl.HashCode.1.0.0\lib\net461\Microsoft.Bcl.HashCode.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="SolidEdge.Community">
+      <HintPath>SELib\SolidEdge.Community.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Buffers.4.4.0\lib\netstandard2.0\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Memory, Version=4.0.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Memory.4.5.0\lib\netstandard2.0\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Numerics.Vectors.4.4.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Runtime.CompilerServices.Unsafe.4.5.2\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Threading.Tasks.Extensions.4.5.2\lib\netstandard2.0\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="TcLogging, Version=2312.0.0.0, Culture=neutral, PublicKeyToken=0edd5b5ddd601444, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\2506TC_DLL\missingddll\TcLogging.dll</HintPath>
+    </Reference>
+    <Reference Include="TcMemNetBinding">
+      <HintPath>..\..\..\..\Users\wntx64\soa_client\net\netstandard2.0\TcMemNetBinding.dll</HintPath>
+    </Reference>
+    <Reference Include="TcMemNetBindingInterface">
+      <HintPath>..\..\..\..\Users\wntx64\soa_client\net\netstandard2.0\TcMemNetBindingInterface.dll</HintPath>
+    </Reference>
+    <Reference Include="TcMemNetBindingInterface40, Version=1.0.0.0, Culture=neutral, PublicKeyToken=0edd5b5ddd601444, processorArchitecture=MSIL" />
+    <Reference Include="TcServerNetBinding">
+      <HintPath>..\..\..\..\Users\wntx64\soa_client\net\netstandard2.0\TcServerNetBinding.dll</HintPath>
+    </Reference>
+    <Reference Include="TcSoaAdministrationStrong, Version=14000.2.0.0, Culture=neutral, PublicKeyToken=0edd5b5ddd601444, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Users\wntx64\soa_client\net\netstandard2.0\TcSoaAdministrationStrong.dll</HintPath>
+    </Reference>
+    <Reference Include="TcSoaBomStrong, Version=14000.2.0.0, Culture=neutral, PublicKeyToken=0edd5b5ddd601444, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Users\wntx64\soa_client\net\netstandard2.0\TcSoaBomStrong.dll</HintPath>
+    </Reference>
+    <Reference Include="TcSoaBusinessModelerStrong, Version=14000.2.0.0, Culture=neutral, PublicKeyToken=0edd5b5ddd601444, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Users\wntx64\soa_client\net\netstandard2.0\TcSoaBusinessModelerStrong.dll</HintPath>
+    </Reference>
+    <Reference Include="TcSoaCadStrong, Version=14000.2.0.0, Culture=neutral, PublicKeyToken=0edd5b5ddd601444, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Users\wntx64\soa_client\net\netstandard2.0\TcSoaCadStrong.dll</HintPath>
+    </Reference>
+    <Reference Include="TcSoaClient, Version=14000.2.0.0, Culture=neutral, PublicKeyToken=0edd5b5ddd601444, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Users\wntx64\soa_client\net\netstandard2.0\TcSoaClient.dll</HintPath>
+    </Reference>
+    <Reference Include="TcSoaCommon, Version=14000.2.0.0, Culture=neutral, PublicKeyToken=0edd5b5ddd601444, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Users\wntx64\soa_client\net\netstandard2.0\TcSoaCommon.dll</HintPath>
+    </Reference>
+    <Reference Include="TcSoaCoreStrong, Version=14000.2.0.0, Culture=neutral, PublicKeyToken=0edd5b5ddd601444, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Users\wntx64\soa_client\net\netstandard2.0\TcSoaCoreStrong.dll</HintPath>
+    </Reference>
+    <Reference Include="TcSoaFMS, Version=14000.2.0.0, Culture=neutral, PublicKeyToken=0edd5b5ddd601444, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Users\wntx64\soa_client\net\net48\TcSoaFMS.dll</HintPath>
+    </Reference>
+    <Reference Include="TcSoaFMS64, Version=14000.2.0.0, Culture=neutral, PublicKeyToken=0edd5b5ddd601444, processorArchitecture=AMD64" />
+    <Reference Include="TcSoaGlobalMultiSiteStrong, Version=14000.2.0.0, Culture=neutral, PublicKeyToken=0edd5b5ddd601444, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Users\wntx64\soa_client\net\netstandard2.0\TcSoaGlobalMultiSiteStrong.dll</HintPath>
+    </Reference>
+    <Reference Include="TcSoaImportExportStrong, Version=14000.2.0.0, Culture=neutral, PublicKeyToken=0edd5b5ddd601444, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Users\wntx64\soa_client\net\netstandard2.0\TcSoaImportExportStrong.dll</HintPath>
+    </Reference>
+    <Reference Include="TcSoaQueryStrong, Version=14000.2.0.0, Culture=neutral, PublicKeyToken=0edd5b5ddd601444, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Users\wntx64\soa_client\net\netstandard2.0\TcSoaQueryStrong.dll</HintPath>
+    </Reference>
+    <Reference Include="TcSoaRdvStrong, Version=14000.2.0.0, Culture=neutral, PublicKeyToken=0edd5b5ddd601444, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Users\wntx64\soa_client\net\netstandard2.0\TcSoaRdvStrong.dll</HintPath>
+    </Reference>
+    <Reference Include="TcSoaRequirementsManagementStrong, Version=14000.2.0.0, Culture=neutral, PublicKeyToken=0edd5b5ddd601444, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Users\wntx64\soa_client\net\netstandard2.0\TcSoaRequirementsManagementStrong.dll</HintPath>
+    </Reference>
+    <Reference Include="TcSoaStrongModel, Version=14000.2.0.0, Culture=neutral, PublicKeyToken=0edd5b5ddd601444, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Users\wntx64\soa_client\net\netstandard2.0\TcSoaStrongModel.dll</HintPath>
+    </Reference>
+    <Reference Include="TcSoaStructureManagementStrong, Version=14000.2.0.0, Culture=neutral, PublicKeyToken=0edd5b5ddd601444, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Users\wntx64\soa_client\net\netstandard2.0\TcSoaStructureManagementStrong.dll</HintPath>
+    </Reference>
+    <Reference Include="TcSoaWorkflowStrong, Version=14000.2.0.0, Culture=neutral, PublicKeyToken=0edd5b5ddd601444, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Users\wntx64\soa_client\net\netstandard2.0\TcSoaWorkflowStrong.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.4.5">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 4.5</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="Microsoft.Office.Core">
+      <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>8</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="Microsoft.Office.Interop.Excel">
+      <Guid>{00020813-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>9</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="VBIDE">
+      <Guid>{0002E157-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>5</VersionMajor>
+      <VersionMinor>3</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
