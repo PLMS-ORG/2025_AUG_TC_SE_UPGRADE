@@ -68,8 +68,9 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Interop.SolidEdge">
-      <HintPath>package\Interop.SolidEdge.dll</HintPath>
+    <Reference Include="Interop.SolidEdge, Version=219.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>package\Interop.SolidEdge.220.2.0\lib\net45\Interop.SolidEdge.dll</HintPath>
     </Reference>
     <Reference Include="SolidEdge.Community">
       <HintPath>package\SolidEdge.Community.dll</HintPath>
