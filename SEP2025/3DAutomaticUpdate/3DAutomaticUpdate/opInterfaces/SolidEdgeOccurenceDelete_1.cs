@@ -53,23 +53,30 @@ namespace _3DAutomaticUpdate.opInterfaces
                 Utility.Log("SolidEdgeOccurrenceDeleteFromExcel: " + "Occurrence List Is Empty", logFilePath);
                 return;
             }
-            List<String> MasterAssemblyList = MasterAssemblyReader.getComponents();
 
-            if (MasterAssemblyList == null || MasterAssemblyList.Count == 0)
-            {
-                Utility.Log("SolidEdgeOccurrenceDeleteFromExcel: " + "Remove Component List is Empty", logFilePath);
-                return;
-            }
-            var occurenceListDelete = string.Join(",", occurenceList);
-            Utility.Log("occurenceList: " + occurenceListDelete.ToString(), logFilePath);
-            var MasterAssemblyListDelete = string.Join(",", MasterAssemblyList);
-            Utility.Log("MasterAssemblyList: " + MasterAssemblyListDelete.ToString(), logFilePath);
-            var ListOfComponentsToDelete = occurenceList.Except(MasterAssemblyList).ToList();
-            if (ListOfComponentsToDelete == null || ListOfComponentsToDelete.Count == 0)
-            {
-                Utility.Log("SolidEdgeOccurrenceDeleteFromExcel: " + "ListOfComponentsToDelete is Empty", logFilePath);
-                return;
-            }
+            // 13-10-2025 | Murali || START
+            // Added Logic for Request from LTC (ALLEN). Sync 3D must ignore, not remove and do nothing on parts/assemblies that are not present in Excel Template “MASTER ASSEMBLY” sheet
+            // 13-10-2025 | Murali || END
+
+            //List<String> MasterAssemblyList = MasterAssemblyReader.getComponents();
+
+            //if (MasterAssemblyList == null || MasterAssemblyList.Count == 0)
+            //{
+            //    Utility.Log("SolidEdgeOccurrenceDeleteFromExcel: " + "Remove Component List is Empty", logFilePath);
+            //    return;
+            //}
+            //var occurenceListDelete = string.Join(",", occurenceList);
+            //Utility.Log("occurenceList: " + occurenceListDelete.ToString(), logFilePath);
+            //var MasterAssemblyListDelete = string.Join(",", MasterAssemblyList);
+            //Utility.Log("MasterAssemblyList: " + MasterAssemblyListDelete.ToString(), logFilePath);
+            //var ListOfComponentsToDelete = occurenceList.Except(MasterAssemblyList).ToList();
+            //if (ListOfComponentsToDelete == null || ListOfComponentsToDelete.Count == 0)
+            //{
+            //    Utility.Log("SolidEdgeOccurrenceDeleteFromExcel: " + "ListOfComponentsToDelete is Empty", logFilePath);
+            //    return;
+            //}
+
+            var ListOfComponentsToDelete = MasterAssemblyReader.getExcludedComponents();
 
             List<String> ComponentsToDelete = (List<String>)ListOfComponentsToDelete;
 

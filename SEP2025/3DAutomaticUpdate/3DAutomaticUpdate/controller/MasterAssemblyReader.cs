@@ -11,15 +11,27 @@ namespace _3DAutomaticUpdate.controller
     {
         public static List<String> componentList = new List<String>();
 
+        // 13-10-2025 | Murali || START
+        // Added Logic for Request from LTC (ALLEN). Sync 3D must ignore, not remove and do nothing on parts/assemblies that are not present in Excel Template “MASTER ASSEMBLY” sheet
+        // 13-10-2025 | Murali || END
+        public static List<String> ExcludecomponentList = new List<String>();
+
         public static List<String> getComponents()
         {
             return componentList;
+        }
+
+        public static List<String> getExcludedComponents()
+        {
+            return ExcludecomponentList;
         }
 
         // Read the Master Assembly to Collect the Components that Needs to be Added/Removed
         public static void ReadMasterAssemblySheet(Microsoft.Office.Interop.Excel.Application xlApp, Microsoft.Office.Interop.Excel.Workbook xlWorkbook, String logFilePath)
         {
             componentList.Clear();
+            ExcludecomponentList.Clear(); // 13-10-2025 | Murali || START
+
             //Utility.Log("----------------------------------------------------------", logFilePath);
             if (xlApp == null)
             {
@@ -87,6 +99,10 @@ namespace _3DAutomaticUpdate.controller
                                         else if (Status.Equals("EXCLUDED", StringComparison.OrdinalIgnoreCase) == true)
                                         {
                                             Utility.Log("fileName is Excluded : " + fileName, logFilePath);
+                                            if (ExcludecomponentList.Contains(fileName) == false)
+                                            {
+                                                ExcludecomponentList.Add(fileName);
+                                            }
                                         }
 
                                     }
