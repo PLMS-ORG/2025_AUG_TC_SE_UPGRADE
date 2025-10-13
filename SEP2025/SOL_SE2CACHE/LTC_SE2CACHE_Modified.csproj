@@ -54,7 +54,7 @@
   <ItemGroup>
     <Reference Include="Interop.SolidEdge, Version=219.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\x64\Release\Interop.SolidEdge.dll</HintPath>
+      <HintPath>packages\Interop.SolidEdge.220.2.0\lib\net45\Interop.SolidEdge.dll</HintPath>
     </Reference>
     <Reference Include="interop.SolidEdgeAssemblyLib">
       <HintPath>..\SE_DLL\interop.SolidEdgeAssemblyLib.dll</HintPath>
@@ -81,7 +81,7 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="itextsharp">
-      <HintPath>..\PDFWaterMark\ConsoleApplication2\bin\Debug\itextsharp.dll</HintPath>
+      <HintPath>libs\itextsharp.dll</HintPath>
     </Reference>
     <Reference Include="SolidEdge.Community, Version=219.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
