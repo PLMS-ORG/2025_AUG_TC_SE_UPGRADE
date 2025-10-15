@@ -173,6 +173,12 @@ namespace DemoAddInTC
 
         private void bw9_PostClone_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
+            if (e.Result == null || e.Result.ToString().Equals("NOK"))
+            {
+                MessageBox.Show("Sanitize XL - Post Clone Operation Failed. Please check the post clone log file for more details..");
+                return;
+            }
+
             MessageBox.Show("Sanitize XL - Post Clone Operation Completed. Please check the updated Excel dataset in Team-center..");
             return;
         }
@@ -183,16 +189,24 @@ namespace DemoAddInTC
             SolidEdgeFramework.Application application = null;
             List<object> genericlist = e.Argument as List<object>;
             application = (SolidEdgeFramework.Application)genericlist[0];
+            bool parseFlag = false;
             try
             {
-                RunSanitizeXL_PostClone_2(application);
+                parseFlag = RunSanitizeXL_PostClone_2(application);
             }
             catch (Exception ex)
             {
                 e.Result = "NOK";
                 return;
             }
-            e.Result = "OK";
+            if (parseFlag == false)
+            {
+                e.Result = "NOK";
+            }
+            else
+            {
+                e.Result = "OK";
+            }
         }
 
         private void bw8_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -360,6 +374,15 @@ namespace DemoAddInTC
 
             Utlity.Log("-----------------------------------------------------------------", logFilePath);
             Utlity.Log("Utility Ended @ " + System.DateTime.Now.ToString(), logFilePath);
+            
+            //parse the log file and check for errors, use the start string to start parsing from
+            String startString = "SE_SESSION - Initating Solid Edge Application";
+            bool parseFlag = Utility.parseLog(logFilePath, startString);
+            if (parseFlag == false)
+            {
+                MessageBox.Show("SyncTE Completed with Errors. To get more details open log file at "+ logFilePath);
+                return;
+            }
             MessageBox.Show("SyncTE Completed");
         }
         //SyncTE
@@ -1297,7 +1320,7 @@ namespace DemoAddInTC
         //}
 
 
-        private void RunSanitizeXL_PostClone_2(SolidEdgeFramework.Application application)
+        private bool RunSanitizeXL_PostClone_2(SolidEdgeFramework.Application application)
         {
 
             //SolidEdgeFramework.Application application = null;
@@ -1311,7 +1334,7 @@ namespace DemoAddInTC
             if (document == null)
             {
                 MessageBox.Show("document is NULL");
-                return;
+                return false;
             }
             String assemblyFileName = document.FullName;
             SolidEdgeData1.setAssemblyFileName(assemblyFileName);
@@ -1381,6 +1404,8 @@ namespace DemoAddInTC
             Utlity.Log("Logout from TC..", logFilePath, "CTD");
             TcAdaptor.logout(logFilePath);
 
+            bool parseFlag = Utility.parseLog(logFilePath);
+            return parseFlag;
         }
 
         // 15-10-2024 | Murali | Removed the SOA TC call, which will download the XL from TC.

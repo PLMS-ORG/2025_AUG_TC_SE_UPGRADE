@@ -1243,17 +1243,29 @@ namespace DemoAddInTC
                 Utlity.Log("Opening the new item in current solidedge session", logFilePath, "CTD");
                 objDocuments.Open(newItemFilePath);
 
+                // parse the log file to check for any errors in it.
+                String startString = "Utility Started @"; // to identify the start point of the log file
+                bool parseLogFlag = Utility.parseLog(logFilePath, startString);
+
                 Utlity.Log("Executing excel sanitize post clone", logFilePath, "CTD");
                 Ribbon2d ribbon2dObj = new Ribbon2d();
                 ribbon2dObj.RunSanitizeXL_PostClone_background();
 
-
-
-                MessageBox.Show("Derivative Creation Completed. \nItem ID " + bstrItemID + "/" + bstrItemRevID + " cloned as " + newItemID + "/" + newItemRevID
-                    + "\n" + "Please wait for Excel sanitization to complete." + "\n" +
-                    "The progress will be shown in the prompt bar and a pop up will be shown after the process is complete. Please wait");
-                //MessageBox.Show("Derivative Creation Completed. \nItem ID " + bstrItemID + "//" + bstrItemRevID + " cloned as " + newItemID + "//" + newItemRevID
-                //   + "\n" + "Excel Sanitization completed");
+                if (parseLogFlag == false)
+                {
+                    MessageBox.Show("1. Derivative Creation Completed but some errors were encountered during the process. Please check the log file " + logFilePath + "\n" +
+                        "2. Item ID " + bstrItemID + " / " + bstrItemRevID + " cloned as " + newItemID + " / " + newItemRevID
+                        + "\n" + "3. Please wait for Excel sanitization to complete." + "\n" +
+                        "The progress will be shown in the prompt bar and a pop up will be shown after the process is complete. Please wait..");
+                }
+                else
+                {
+                    MessageBox.Show("Derivative Creation Completed. \nItem ID " + bstrItemID + "/" + bstrItemRevID + " cloned as " + newItemID + "/" + newItemRevID
+                        + "\n" + "Please wait for Excel sanitization to complete." + "\n" +
+                        "The progress will be shown in the prompt bar and a pop up will be shown after the process is complete. Please wait");
+                    //MessageBox.Show("Derivative Creation Completed. \nItem ID " + bstrItemID + "//" + bstrItemRevID + " cloned as " + newItemID + "//" + newItemRevID
+                    //   + "\n" + "Excel Sanitization completed");
+                }
                 backgroundWorker1.ReportProgress(100);
                 Ribbon2d.tcw.Invoke((Action)(() => Utlity.Log("Utlity Ended @ " + System.DateTime.Now.ToString(), logFilePath, "CTD")));
                 e.Result = "OK";
