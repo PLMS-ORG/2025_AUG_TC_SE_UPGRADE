@@ -181,5 +181,121 @@ namespace ExcelSyncTC.utils
             hiddenRange = null;
 
         }
+
+        public static bool parseLog(String logFilePath, [Optional] String startString)
+        {
+            if (startString == null) startString = "";
+
+            String stageDir = Utlity.CreateLogDirectory();
+            String parseLog_LogFilePath = System.IO.Path.Combine(stageDir, "parseLog_LogFile" + ".txt");
+
+            // Get the config file Path from the executable directory
+            //string exeDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            //Log("exeDirectory: " + exeDirectory, parseLog_LogFilePath);
+            //string configFilePath = Path.Combine(exeDirectory, "error_config.txt");
+
+
+            // Check if config file and log file exist
+            //if (!File.Exists(configFilePath))
+            //{
+            //    //Console.WriteLine("Config file not found: " + configFilePath);
+            //    Log("Config file not found: " + configFilePath, parseLog_LogFilePath);
+            //    return false;
+            //}
+            if (!File.Exists(logFilePath))
+            {
+                //Console.WriteLine("Log file not found: " + logFilePath);
+                Log("Log file not found: " + logFilePath, parseLog_LogFilePath);
+                return false;
+            }
+
+            // Read search keywords from config file (one per line)
+            //List<string> keywords = new List<string>(File.ReadAllLines(configFilePath));
+
+            // keywords in the list of strings will be hard coded below.
+            List<string> keywords = new List<string>();
+            keywords.Add("exception");
+            keywords.Add("error");
+            keywords.Add("failed");
+            keywords.Add("unable");
+            keywords.Add("hresult");
+            keywords.Add("warning");
+            
+          
+          // Dictionary to store keyword counts
+            Dictionary<string, int> keywordCounts = new Dictionary<string, int>();
+            foreach (var keyword in keywords)
+            {
+                keywordCounts[keyword] = 0;
+            }
+
+            var allLines = new string[] { };
+            // if StartString is provided, search for the last occurrence and start parsing from there
+            if (!string.IsNullOrEmpty(startString))
+            {
+                allLines = File.ReadAllLines(logFilePath);
+                Log("Total lines in log file: " + allLines.Length, parseLog_LogFilePath);
+                Log("Searching for start string: " + startString, parseLog_LogFilePath);
+                //int startIndex = Array.LastIndexOf(allLines, allLines.FirstOrDefault(line => line.Contains(startString)));
+                int startIndex = Array.FindLastIndex(allLines, line => line.Contains(startString));
+                Log("Start index found at: " + startIndex, parseLog_LogFilePath);
+                if (startIndex != -1)
+                {
+                    allLines = allLines.Skip(startIndex).ToArray();
+
+                }
+                Log("Lines to be parsed after applying start string: " + allLines.Length, parseLog_LogFilePath);
+            }
+            else
+            {
+                allLines = File.ReadAllLines(logFilePath);
+            }
+
+            if (allLines.Length == 0)
+            {
+                Log("No lines found in the log file after the specified start string.", parseLog_LogFilePath);
+                return false;
+            }
+
+            // Read the log file line by line
+            foreach (var line in allLines)
+            {
+                foreach (var keyword in keywords)
+                {
+                    int count = CountOccurrences(line, keyword);
+                    keywordCounts[keyword] += count;
+                }
+            }
+
+            Log(Path.GetFileName(logFilePath) + " is Parsed Successfully", parseLog_LogFilePath);
+            //Log("Keywords searched from config file: " + configFilePath, parseLog_LogFilePath);
+            // Display the output
+            foreach (var kvp in keywordCounts)
+            {
+                //Console.WriteLine($"{kvp.Key}: {kvp.Value}");
+                Log($"{kvp.Key}: {kvp.Value}", parseLog_LogFilePath);
+            }
+
+            Log("keywordCounts.Count: " + keywordCounts.Count, parseLog_LogFilePath);
+            if (keywordCounts.Values.Sum() == 0)
+            {
+                //Console.WriteLine("No keywords found in the log file.");
+                Log("No keywords found in the log file.", parseLog_LogFilePath);
+                return true;
+            }
+            return false; // keywords were found, indicating potential issues
+        }
+
+        // Helper function to count occurrences of a substring in a string (case-insensitive)
+        static int CountOccurrences(string source, string substring)
+        {
+            int count = 0, index = 0;
+            while ((index = source.IndexOf(substring, index, StringComparison.OrdinalIgnoreCase)) != -1)
+            {
+                count++;
+                index += substring.Length;
+            }
+            return count;
+        }
     }
 }

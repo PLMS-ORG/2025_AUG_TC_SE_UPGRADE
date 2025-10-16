@@ -1,8 +1,8 @@
 ﻿
-using ExcelSync.controller;
-using ExcelSync.model;
-using ExcelSync.opInterfaces;
-using ExcelSync.utils;
+using ExcelSyncTC.controller;
+using ExcelSyncTC.model;
+using ExcelSyncTC.opInterfaces;
+using ExcelSyncTC.utils;
 using SolidEdgeFramework;
 using System;
 using System.Collections.Generic;
@@ -16,9 +16,9 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
-using ExcelSync.TC;
+using ExcelSyncTC.TC;
 
-namespace ExcelSync
+namespace ExcelSyncTC
 {
     public partial class ExcelSyncDialog : Form
     {
@@ -188,6 +188,128 @@ namespace ExcelSync
 
         }
 
+        public static void DownloadFilesToCache(SolidEdgeFramework.Application application, SolidEdgeFramework.SolidEdgeTCE objSEEC,
+           SolidEdgeDocument Sedocument, string logFilePath)
+        {
+            
+            //Finding drawings of current assembly
+            try
+            {
+                objSEEC = application.SolidEdgeTCE;
+                SolidEdgeFramework.PropertySets propertySets = (SolidEdgeFramework.PropertySets)Sedocument.Properties;
+                SolidEdgeFramework.Properties projectInformation = (SolidEdgeFramework.Properties)propertySets.Item(5);
+                SolidEdgeFramework.Property revision = (SolidEdgeFramework.Property)projectInformation.Item(2);
+                string revisionValue = revision.get_Value().ToString();
+                SolidEdgeFramework.Property documentNumber = (SolidEdgeFramework.Property)projectInformation.Item(1);
+                string documentNumberValue = documentNumber.get_Value().ToString();
+                int NoOfComponents = 0;
+                System.Object ListOfItemRevIds = null, ListOfFileSpecs = null;
+                objSEEC.GetBomStructure(documentNumberValue, revisionValue, SolidEdgeConstants.RevisionRuleType.LatestRevision.ToString(), true, out NoOfComponents,
+                        out ListOfItemRevIds, out ListOfFileSpecs);
+                Dictionary<string, string> itemAndRevIds = new Dictionary<string, string>();
+                itemAndRevIds.Add(documentNumberValue, revisionValue);
+                if (NoOfComponents > 0)
+                {
+                    System.Object[,] abcd = (System.Object[,])ListOfItemRevIds;
+                    for (int i = 0; i <= abcd.GetUpperBound(0); i++)
+                    {
+                        if (itemAndRevIds.Keys.Contains(abcd[i, 0].ToString()) == false)
+                            itemAndRevIds.Add(abcd[i, 0].ToString(), abcd[i, 1].ToString());
+                    }
+                }
+                System.Object vFileNames = null;
+                int nFiles = 0;
+                System.Object[] objArray = null;
+                foreach (KeyValuePair<string, string> pair in itemAndRevIds)
+                {
+                    vFileNames = null;
+                    nFiles = 0;
+                    application.DisplayAlerts = false;
+                    objSEEC.GetListOfFilesFromTeamcenterServer(pair.Key, pair.Value, out vFileNames, out nFiles);
+                    objArray = null;
+                    objArray = (System.Object[])vFileNames;
+                    foreach (System.Object o in objArray)
+                    {
+                        string filename = (string)(o);
+                        if (filename.Contains(".dft"))
+                        {
+                            System.Object[,] temp = new object[1, 1];
+                            objSEEC.DownladDocumentsFromServerWithOptions(pair.Key, pair.Value, filename,
+                                SolidEdgeConstants.RevisionRuleType.LatestRevision.ToString(), "", true, false,
+                                1, temp);
+                            Utlity.Log("Downloaded drawing of " + pair.Key + "/" + pair.Value + " to cache", logFilePath);
+                        }
+
+                        if (filename.Contains(".par"))
+                        {
+                            System.Object[,] temp = new object[1, 1];
+                            //application.DisplayAlerts = false;
+                            //objSEEC.ValidateLogin(userName, password, group, role, URL);
+                            objSEEC.DownladDocumentsFromServerWithOptions(pair.Key, pair.Value, filename,
+                                SolidEdgeConstants.RevisionRuleType.LatestRevision.ToString(), "", false, false,
+                                1, temp);
+                            Utlity.Log("Downloaded part of " + pair.Key + "/" + pair.Value + " to cache", logFilePath);
+
+                        }
+
+                        if (filename.EndsWith(".psm", StringComparison.OrdinalIgnoreCase) == true)
+                        {
+                            System.Object[,] temp = new object[1, 1];
+                            //application.DisplayAlerts = false;
+                            //objSEEC.ValidateLogin(userName, password, group, role, URL);
+                            objSEEC.DownladDocumentsFromServerWithOptions(pair.Key, pair.Value, filename,
+                               SolidEdgeConstants.RevisionRuleType.LatestRevision.ToString(), "", false, false,
+                                1, temp);
+                            Utlity.Log("Downloaded sheet metal of " + pair.Key + "/" + pair.Value + " to cache", logFilePath);
+                        }
+
+                        if (filename.EndsWith(".asm", StringComparison.OrdinalIgnoreCase) == true)
+                        {
+                            System.Object[,] temp = new object[1, 1];
+                            //application.DisplayAlerts = false;
+                            //objSEEC.ValidateLogin(userName, password, group, role, URL);
+                            objSEEC.DownladDocumentsFromServerWithOptions(pair.Key, pair.Value, filename,
+                                SolidEdgeConstants.RevisionRuleType.LatestRevision.ToString(), "", false, false,
+                                1, temp);
+                            Utlity.Log("Downloaded Assembly of " + pair.Key + "/" + pair.Value + " to cache", logFilePath);
+                        }
+
+                        if (filename.EndsWith(".pwd", StringComparison.OrdinalIgnoreCase) == true)
+                        {
+                            System.Object[,] temp = new object[1, 1];
+                            //application.DisplayAlerts = false;
+                            //objSEEC.ValidateLogin(userName, password, group, role, URL);
+                            objSEEC.DownladDocumentsFromServerWithOptions(pair.Key, pair.Value, filename,
+                                SolidEdgeConstants.RevisionRuleType.LatestRevision.ToString(), "", false, false,
+                                1, temp);
+                            Utlity.Log("Downloaded weldment of " + pair.Key + "/" + pair.Value + " to cache", logFilePath);
+                        }
+
+                        if (filename.EndsWith(".par", StringComparison.OrdinalIgnoreCase) || filename.EndsWith(".asm", StringComparison.OrdinalIgnoreCase) || filename.EndsWith(".pwd", StringComparison.OrdinalIgnoreCase) || filename.EndsWith(".psm", StringComparison.OrdinalIgnoreCase) || filename.EndsWith(".dft", StringComparison.OrdinalIgnoreCase))
+                        {
+
+                            if (listOfFileNamesInSession.Contains(filename) == false)
+                                listOfFileNamesInSession.Add(filename.ToLower().Trim());
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Utlity.Log("An exception was caught while trying to fetch list of file names " + ex.ToString(), logFilePath);
+
+            }
+            if (listOfFileNamesInSession.Count != 0)
+            {
+                Utlity.Log("Printing listOfFileNamesInSession", logFilePath);
+                foreach (string s in listOfFileNamesInSession)
+                    Utlity.Log(s, logFilePath);
+            }
+            else
+                Utlity.Log("No documents found in listOfFileNamesInSession", logFilePath);
+        }
+
+        public static List<string> listOfFileNamesInSession = new List<string>();
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {
 
@@ -211,6 +333,7 @@ namespace ExcelSync
             Utlity.Log("Connecting to Solid Edge..", logFilePath, "INFO");
             SE_SESSION.InitializeSolidEdgeSession(logFilePath);
             SolidEdgeFramework.Application Seapplication = null;
+            SolidEdgeFramework.SolidEdgeTCE objSEEC = null;
             SolidEdgeDocument Sedocument = null;
             Seapplication = SE_SESSION.getSolidEdgeSession();
             if (Seapplication == null)
@@ -228,7 +351,123 @@ namespace ExcelSync
             String topLineAssembly = Sedocument.FullName;
             Utlity.Log("topLineAssembly: " + topLineAssembly, logFilePath);
             //String topLineAssembly = Path.ChangeExtension(xlFilePath, ".asm");
-           
+
+            //Finding drawings of current assembly
+            try
+            {
+                objSEEC = Seapplication.SolidEdgeTCE;
+                SolidEdgeFramework.PropertySets propertySets = (SolidEdgeFramework.PropertySets)Sedocument.Properties;
+                SolidEdgeFramework.Properties projectInformation = (SolidEdgeFramework.Properties)propertySets.Item(5);
+                SolidEdgeFramework.Property revision = (SolidEdgeFramework.Property)projectInformation.Item(2);
+                string revisionValue = revision.get_Value().ToString();
+                SolidEdgeFramework.Property documentNumber = (SolidEdgeFramework.Property)projectInformation.Item(1);
+                string documentNumberValue = documentNumber.get_Value().ToString();
+                int NoOfComponents = 0;
+                System.Object ListOfItemRevIds = null, ListOfFileSpecs = null;
+                objSEEC.GetBomStructure(documentNumberValue, revisionValue, SolidEdgeConstants.RevisionRuleType.LatestRevision.ToString(), true, out NoOfComponents,
+                        out ListOfItemRevIds, out ListOfFileSpecs);
+                Dictionary<string, string> itemAndRevIds = new Dictionary<string, string>();
+                itemAndRevIds.Add(documentNumberValue, revisionValue);
+                if (NoOfComponents > 0)
+                {
+                    System.Object[,] abcd = (System.Object[,])ListOfItemRevIds;
+                    for (int i = 0; i <= abcd.GetUpperBound(0); i++)
+                    {
+                        if (itemAndRevIds.Keys.Contains(abcd[i, 0].ToString()) == false)
+                            itemAndRevIds.Add(abcd[i, 0].ToString(), abcd[i, 1].ToString());
+                    }
+                }
+                System.Object vFileNames = null;
+                int nFiles = 0;
+                System.Object[] objArray = null;
+                foreach (KeyValuePair<string, string> pair in itemAndRevIds)
+                {
+                    vFileNames = null;
+                    nFiles = 0;
+                    application.DisplayAlerts = false;
+                    objSEEC.GetListOfFilesFromTeamcenterServer(pair.Key, pair.Value, out vFileNames, out nFiles);
+                    objArray = null;
+                    objArray = (System.Object[])vFileNames;
+                    foreach (System.Object o in objArray)
+                    {
+                        string filename = (string)(o);
+                        if (filename.Contains(".dft"))
+                        {
+                            System.Object[,] temp = new object[1, 1];
+                            objSEEC.DownladDocumentsFromServerWithOptions(pair.Key, pair.Value, filename,
+                                SolidEdgeConstants.RevisionRuleType.LatestRevision.ToString(), "", true, false,
+                                1, temp);
+                            Utlity.Log("Downloaded drawing of " + pair.Key + "/" + pair.Value + " to cache", logFilePath);
+                        }
+
+                        if (filename.Contains(".par"))
+                        {
+                            System.Object[,] temp = new object[1, 1];
+                            //application.DisplayAlerts = false;
+                            //objSEEC.ValidateLogin(userName, password, group, role, URL);
+                            objSEEC.DownladDocumentsFromServerWithOptions(pair.Key, pair.Value, filename,
+                                SolidEdgeConstants.RevisionRuleType.LatestRevision.ToString(), "", false, false,
+                                1, temp);
+                            Utlity.Log("Downloaded part of " + pair.Key + "/" + pair.Value + " to cache", logFilePath);
+                            
+                        }
+
+                        if (filename.EndsWith(".psm", StringComparison.OrdinalIgnoreCase) == true)
+                        {
+                            System.Object[,] temp = new object[1, 1];
+                            //application.DisplayAlerts = false;
+                            //objSEEC.ValidateLogin(userName, password, group, role, URL);
+                            objSEEC.DownladDocumentsFromServerWithOptions(pair.Key, pair.Value, filename,
+                               SolidEdgeConstants.RevisionRuleType.LatestRevision.ToString(), "", false, false,
+                                1, temp);
+                            Utlity.Log("Downloaded sheet metal of " + pair.Key + "/" + pair.Value + " to cache", logFilePath);
+                        }
+
+                        if (filename.EndsWith(".asm", StringComparison.OrdinalIgnoreCase) == true)
+                        {
+                            System.Object[,] temp = new object[1, 1];
+                           //application.DisplayAlerts = false;
+                            //objSEEC.ValidateLogin(userName, password, group, role, URL);
+                            objSEEC.DownladDocumentsFromServerWithOptions(pair.Key, pair.Value, filename,
+                                SolidEdgeConstants.RevisionRuleType.LatestRevision.ToString(), "", false, false,
+                                1, temp);
+                            Utlity.Log("Downloaded Assembly of " + pair.Key + "/" + pair.Value + " to cache", logFilePath);
+                        }
+
+                        if (filename.EndsWith(".pwd", StringComparison.OrdinalIgnoreCase) == true)
+                        {
+                            System.Object[,] temp = new object[1, 1];
+                            //application.DisplayAlerts = false;
+                            //objSEEC.ValidateLogin(userName, password, group, role, URL);
+                            objSEEC.DownladDocumentsFromServerWithOptions(pair.Key, pair.Value, filename,
+                                SolidEdgeConstants.RevisionRuleType.LatestRevision.ToString(), "", false, false,
+                                1, temp);
+                            Utlity.Log("Downloaded weldment of " + pair.Key + "/" + pair.Value + " to cache", logFilePath);
+                        }
+
+                        if (filename.EndsWith(".par", StringComparison.OrdinalIgnoreCase) || filename.EndsWith(".asm", StringComparison.OrdinalIgnoreCase) || filename.EndsWith(".pwd", StringComparison.OrdinalIgnoreCase) || filename.EndsWith(".psm", StringComparison.OrdinalIgnoreCase) || filename.EndsWith(".dft", StringComparison.OrdinalIgnoreCase))
+                        {
+                            
+                            if (listOfFileNamesInSession.Contains(filename) == false)
+                                listOfFileNamesInSession.Add(filename.ToLower().Trim());
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Utlity.Log("An exception was caught while trying to fetch list of file names " + ex.ToString(), logFilePath);
+
+            }
+            if (listOfFileNamesInSession.Count != 0)
+            {
+                Utlity.Log("Printing listOfFileNamesInSession", logFilePath);
+                foreach (string s in listOfFileNamesInSession)
+                    Utlity.Log(s, logFilePath);
+            }
+            else
+                Utlity.Log("No documents found in listOfFileNamesInSession", logFilePath);
+
             
             try
             {
@@ -249,8 +488,8 @@ namespace ExcelSync
             try
             {
                 Utlity.Log("Deleting Occurrences In SolidEdge", logFilePath, "INFO");
-                SolidEdgeOccurenceDelete_1 occDelete = new SolidEdgeOccurenceDelete_1();
-                occDelete.SolidEdgeOccurrenceDeleteFromExcelSTAT(topLineAssembly, logFilePath);
+                 SolidEdgeOccurenceDelete_1 occDelete = new SolidEdgeOccurenceDelete_1();
+                 occDelete.SolidEdgeOccurrenceDeleteFromExcelSTAT(topLineAssembly, logFilePath);
             }
             catch (Exception ex)
             {
@@ -258,7 +497,42 @@ namespace ExcelSync
                 e.Result = "NOK";
                 return;
             }
-            
+
+
+            // Upload the files back to Teamcenter - 04-April-2022
+            try
+            {
+                Utlity.Log("Uploading files back to Teamcenter after occurence delete....", logFilePath);
+                SEECAdaptor.LoginToTeamcenter();
+                SEECAdaptor.CheckInSEDocumentsToTeamcenter(logFilePath, listOfFileNamesInSession);
+
+            }
+            catch (Exception ex)
+            {
+                Utlity.Log("Exception: " + ex.Message, logFilePath);
+                Utlity.Log("Exception: " + ex.StackTrace, logFilePath);
+                return;
+            }
+
+           if (application == null)
+            {
+                Utlity.Log("application object is null..", logFilePath);
+                e.Result = "NOK";
+                return;
+            }
+
+            objSEEC = Seapplication.SolidEdgeTCE;
+            if (objSEEC == null)
+            {
+                Utlity.Log("SEEC object is null..", logFilePath);
+                return;
+
+            }
+
+            String cachePath = "";
+            objSEEC.GetPDMCachePath(out cachePath);
+            Utlity.Log("RE-DownloadFilesToCache.." + cachePath, logFilePath);
+            DownloadFilesToCache(Seapplication, objSEEC, (SolidEdgeFramework.SolidEdgeDocument)Seapplication.ActiveDocument,logFilePath);
 
             try
             {
@@ -284,15 +558,24 @@ namespace ExcelSync
                 return;
             }
 
+            Sedocument = (SolidEdgeFramework.SolidEdgeDocument)Seapplication.ActiveDocument;
+
+            if (Sedocument == null)
+            {
+                MessageBox.Show("Solid Edge Document is NULL");
+                return;
+            }
+            re_checkout_items_in_cache(Seapplication.SolidEdgeTCE, Sedocument, application, logFilePath);
+
             // Upload the files back to Teamcenter - 17 August 2019
             try
             {
                 Utlity.Log("Uploading files back to Teamcenter....", logFilePath, "INFO");
                 //TcAdaptor.login("dcproxy", "dcproxy", "Engineering", "Designer", logFilePath);
                 //TcAdaptor.TcAdaptor_Init();
-                //SE_SESSION.InitializeSolidEdgeSession(logFilePath);
+                SE_SESSION.InitializeSolidEdgeSession(logFilePath);
                 SEECAdaptor.LoginToTeamcenter();
-                SEECAdaptor.CheckInSEDocumentsToTeamcenter();
+                SEECAdaptor.CheckInSEDocumentsToTeamcenter(logFilePath, ExcelSyncDialog.listOfFileNamesInSession);
                 //TcAdaptor.uploadExcelToTC(xlFilePath, logFilePath);
                 //TcAdaptor.logout(logFilePath);
             }
@@ -303,48 +586,148 @@ namespace ExcelSync
                 return;
             }
 
-            // Commented On 4 Dec 2018 - On Request of Simone.
-            //try
-            //{
-            //    ConnectToSolidEdge(logFilePath);
-            //}
-            //catch (Exception ex)
-            //{
-            //    Utlity.Log("ConnectToSolidEdge: " + ex.Message, logFilePath);
-            //    e.Result = "NOK";
-            //    return;
-            //}
-
-            //try
-            //{
-            //    ModifyXL(xlApp, xlFilePath,logFilePath);
-            //}
-            //catch (Exception ex)
-            //{
-            //    Utlity.Log("ModifyXL: " + ex.Message, logFilePath);
-            //    e.Result = "NOK";
-            //    return;
-            //}
-
-            // Update the Drafts
-            //try
-            //{
-            //    Utlity.Log("Updating Views in Draft Files....", logFilePath, "INFO");
-            //    SolidEdgeUpdateView.SearchDraftFile(topLineAssembly, logFilePath);
-            //}
-            //catch (Exception ex)
-            //{
-            //    Utlity.Log("SearchDraftFile: " + ex.Message, logFilePath);
-            //    e.Result = "NOK";
-            //    return;
-            //}
-
-            
-
-           
-
             //Utlity.Log("Completed SyncTE..", logFilePath, "INFO");
             e.Result = "OK";
+        }
+
+        // Re checked out the items in Cache, In case they are cancelled out.
+        private void re_checkout_items_in_cache( SolidEdgeFramework.SolidEdgeTCE objSEEC, SolidEdgeDocument Sedocument, Microsoft.Office.Interop.Excel.Application application, String logFilePath)
+        {
+            try
+            {
+
+                SolidEdgeFramework.PropertySets propertySets = (SolidEdgeFramework.PropertySets)Sedocument.Properties;
+                SolidEdgeFramework.Properties projectInformation = (SolidEdgeFramework.Properties)propertySets.Item(5);
+                SolidEdgeFramework.Property revision = (SolidEdgeFramework.Property)projectInformation.Item(2);
+                string revisionValue = revision.get_Value().ToString();
+                SolidEdgeFramework.Property documentNumber = (SolidEdgeFramework.Property)projectInformation.Item(1);
+                string documentNumberValue = documentNumber.get_Value().ToString();
+                int NoOfComponents = 0;
+                System.Object ListOfItemRevIds = null, ListOfFileSpecs = null;
+                objSEEC.GetBomStructure(documentNumberValue, revisionValue, SolidEdgeConstants.RevisionRuleType.LatestRevision.ToString(), true, out NoOfComponents,
+                        out ListOfItemRevIds, out ListOfFileSpecs);
+                String bStrCachePath = "";
+                objSEEC.GetPDMCachePath(out bStrCachePath);
+                Dictionary<string, string> itemAndRevIds = new Dictionary<string, string>();
+                itemAndRevIds.Add(documentNumberValue, revisionValue);
+                if (NoOfComponents > 0)
+                {
+                    System.Object[,] abcd = (System.Object[,])ListOfItemRevIds;
+                    for (int i = 0; i <= abcd.GetUpperBound(0); i++)
+                    {
+                        if (itemAndRevIds.Keys.Contains(abcd[i, 0].ToString()) == false)
+                            itemAndRevIds.Add(abcd[i, 0].ToString(), abcd[i, 1].ToString());
+                    }
+                }
+                System.Object vFileNames = null;
+                int nFiles = 0;
+                System.Object[] objArray = null;
+                foreach (KeyValuePair<string, string> pair in itemAndRevIds)
+                {
+                    vFileNames = null;
+                    nFiles = 0;
+                    objSEEC.GetListOfFilesFromTeamcenterServer(pair.Key, pair.Value, out vFileNames, out nFiles);
+                    objArray = null;
+                    objArray = (System.Object[])vFileNames;
+                    foreach (System.Object o in objArray)
+                    {
+                        string filename = (string)(o);
+                        String fileNameFull = Path.Combine(bStrCachePath, filename);
+                        if (filename.Contains(".dft"))
+                        {
+                            System.Object[,] temp = new object[1, 1];
+
+                            int ischeckedout = objSEEC.IsTeamCenterFileCheckedOut(fileNameFull);
+                            Utlity.Log(fileNameFull + "...checkout Status...: " + ischeckedout, logFilePath);
+                            if (ischeckedout == 0)
+                            {
+                                objSEEC.DownladDocumentsFromServerWithOptions(pair.Key, pair.Value, filename,
+                                    SolidEdgeConstants.RevisionRuleType.LatestRevision.ToString(), "", true, false,
+                                    1, temp);
+                                Utlity.Log("Downloaded drawing of " + pair.Key + "/" + pair.Value + " to cache", logFilePath);
+                            }
+                        }
+
+                        if (filename.Contains(".par"))
+                        {
+                            System.Object[,] temp = new object[1, 1];
+                            
+
+                            int ischeckedout = objSEEC.IsTeamCenterFileCheckedOut(fileNameFull);
+                            Utlity.Log(fileNameFull + "...checkout Status...: " + ischeckedout, logFilePath);
+                            if (ischeckedout == 0)
+                            {
+                                application.DisplayAlerts = false;
+                                objSEEC.DownladDocumentsFromServerWithOptions(pair.Key, pair.Value, filename,
+                                SolidEdgeConstants.RevisionRuleType.LatestRevision.ToString(), "", false, false,
+                                1, temp);
+                                Utlity.Log("Downloaded part of " + pair.Key + "/" + pair.Value + " to cache", logFilePath);
+                            }
+
+                           
+                        }
+
+                        if (filename.EndsWith(".psm", StringComparison.OrdinalIgnoreCase) == true)
+                        {
+                            System.Object[,] temp = new object[1, 1];
+
+                            int ischeckedout = objSEEC.IsTeamCenterFileCheckedOut(fileNameFull);
+                            Utlity.Log(fileNameFull + "...checkout Status...: " + ischeckedout, logFilePath);
+                            if (ischeckedout == 0)
+                            {
+                                application.DisplayAlerts = false;
+                                objSEEC.DownladDocumentsFromServerWithOptions(pair.Key, pair.Value, filename,
+                                   SolidEdgeConstants.RevisionRuleType.LatestRevision.ToString(), "", false, false,
+                                    1, temp);
+                                Utlity.Log("Downloaded sheet metal of " + pair.Key + "/" + pair.Value + " to cache", logFilePath);
+                            }
+                        }
+
+                        if (filename.EndsWith(".asm", StringComparison.OrdinalIgnoreCase) == true)
+                        {
+                            System.Object[,] temp = new object[1, 1];
+                            int ischeckedout = objSEEC.IsTeamCenterFileCheckedOut(fileNameFull);
+                            Utlity.Log(fileNameFull + "...checkout Status...: " + ischeckedout, logFilePath);
+                            if (ischeckedout == 0)
+                            {
+                                application.DisplayAlerts = false;
+                                objSEEC.DownladDocumentsFromServerWithOptions(pair.Key, pair.Value, filename,
+                                    SolidEdgeConstants.RevisionRuleType.LatestRevision.ToString(), "", false, false,
+                                    1, temp);
+                                Utlity.Log("Downloaded Assembly of " + pair.Key + "/" + pair.Value + " to cache", logFilePath);
+                            }
+                        }
+
+                        if (filename.EndsWith(".pwd", StringComparison.OrdinalIgnoreCase) == true)
+                        {
+                            System.Object[,] temp = new object[1, 1];
+
+                            int ischeckedout = objSEEC.IsTeamCenterFileCheckedOut(fileNameFull);
+                            Utlity.Log(fileNameFull + "...checkout Status...: " + ischeckedout, logFilePath);
+                            if (ischeckedout == 0)
+                            {
+                                application.DisplayAlerts = false;
+                                objSEEC.DownladDocumentsFromServerWithOptions(pair.Key, pair.Value, filename,
+                                    SolidEdgeConstants.RevisionRuleType.LatestRevision.ToString(), "", false, false,
+                                    1, temp);
+                                Utlity.Log("Downloaded weldment of " + pair.Key + "/" + pair.Value + " to cache", logFilePath);
+                            }
+                        }
+
+                        if (filename.EndsWith(".par", StringComparison.OrdinalIgnoreCase) || filename.EndsWith(".asm", StringComparison.OrdinalIgnoreCase) || filename.EndsWith(".pwd", StringComparison.OrdinalIgnoreCase) || filename.EndsWith(".psm", StringComparison.OrdinalIgnoreCase) || filename.EndsWith(".dft", StringComparison.OrdinalIgnoreCase))
+                        {
+
+                            if (listOfFileNamesInSession.Contains(filename) == false)
+                                listOfFileNamesInSession.Add(filename.ToLower().Trim());
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Utlity.Log("An exception was caught while trying to fetch list of file names " + ex.ToString(), logFilePath);
+
+            }
         }
 
         private void ModifyXL(Microsoft.Office.Interop.Excel.Application xlApp, String xlFilePath,String logFilePath)

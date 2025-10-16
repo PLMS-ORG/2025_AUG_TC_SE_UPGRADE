@@ -329,7 +329,8 @@ namespace ExcelSyncTC
             String xlFilePath = xlApp.ActiveWorkbook.FullName;
             String LogStageDir = Utlity.CreateLogDirectory();
             String logFilePath = System.IO.Path.Combine(LogStageDir, System.IO.Path.GetFileNameWithoutExtension(xlFilePath) + "_" + "SyncTE" + ".txt");
-            
+
+            Utlity.Log("SyncTE 3D Started", logFilePath);
             Utlity.Log("Connecting to Solid Edge..", logFilePath, "INFO");
             SE_SESSION.InitializeSolidEdgeSession(logFilePath);
             SolidEdgeFramework.Application Seapplication = null;
@@ -587,7 +588,12 @@ namespace ExcelSyncTC
             }
 
             //Utlity.Log("Completed SyncTE..", logFilePath, "INFO");
-            e.Result = "OK";
+           String startString = "SyncTE 3D Started";
+           bool parseFlag = utils.Utlity.parseLog(logFilePath, startString);
+            if (parseFlag == false)
+                e.Result = "NOK";
+            else
+                e.Result = "OK";
         }
 
         // Re checked out the items in Cache, In case they are cancelled out.

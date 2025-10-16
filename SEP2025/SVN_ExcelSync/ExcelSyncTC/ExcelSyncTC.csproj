@@ -38,10 +38,10 @@
     <VSTO_TrustAssembliesLocation>true</VSTO_TrustAssembliesLocation>
     <TargetFrameworkProfile />
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <PublishUrl>D:\2025_AUG_TC_SE_UPGRADE\LTC_Upgrade_2025\SEP2025\SVN_ExcelSync\</PublishUrl>
+    <PublishUrl>D:\2025_AUG_TC_SE_UPGRADE\OCT2025\SEP2025\SVN_ExcelSync\Publish\</PublishUrl>
     <InstallUrl />
     <TargetCulture>en</TargetCulture>
-    <ApplicationVersion>4.0.0.1</ApplicationVersion>
+    <ApplicationVersion>5.0.0.0</ApplicationVersion>
     <AutoIncrementApplicationRevision>false</AutoIncrementApplicationRevision>
     <UpdateEnabled>true</UpdateEnabled>
     <UpdateInterval>7</UpdateInterval>
@@ -148,20 +148,18 @@
   -->
   <ItemGroup>
     <Reference Include="Accessibility" />
-    <Reference Include="FCCNetClientProxy, Version=10.1.0.0, Culture=neutral, PublicKeyToken=0074cebd077fc3ec, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Users\USER\wntx64\soa_client\net\net48\FCCNetClientProxy.dll</HintPath>
+    <Reference Include="FCCNetClientProxy">
+      <HintPath>..\..\2506TC_DLL\net\net\net48\FCCNetClientProxy.dll</HintPath>
     </Reference>
     <Reference Include="FCCNetClientProxy64">
       <HintPath>lib\FCCNetClientProxy64.dll</HintPath>
     </Reference>
-    <Reference Include="FMSNetTicket, Version=1.0.0.0, Culture=neutral, PublicKeyToken=13154ac4654a9a4f, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Users\USER\wntx64\soa_client\net\netstandard2.0\FMSNetTicket.dll</HintPath>
+    <Reference Include="FMSNetTicket">
+      <HintPath>..\..\2506TC_DLL\net\net\netstandard2.0\FMSNetTicket.dll</HintPath>
     </Reference>
     <Reference Include="Interop.SolidEdge, Version=219.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Interop.SolidEdge.219.10.0\lib\net45\Interop.SolidEdge.dll</HintPath>
+      <HintPath>..\..\SE_DLL\Interop.SolidEdge.dll</HintPath>
     </Reference>
     <Reference Include="interop.SolidEdgeRevisionManagerLib">
       <HintPath>C:\Users\USER\Downloads\interop.SolidEdgeRevisionManagerLib.dll</HintPath>
@@ -201,41 +199,33 @@
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="TcSoaBomStrong, Version=14000.0.0.0, Culture=neutral, PublicKeyToken=0edd5b5ddd601444, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\LTC_OCT_2024\LTCMe_TC_Integration\LTCMe_TC_Integration\cs\2506TC_DLL\TcSoaBomStrong.dll</HintPath>
+    <Reference Include="TcSoaBomStrong">
+      <HintPath>..\..\2506TC_DLL\net\net\netstandard2.0\TcSoaBomStrong.dll</HintPath>
     </Reference>
-    <Reference Include="TcSoaCadStrong, Version=14000.0.0.0, Culture=neutral, PublicKeyToken=0edd5b5ddd601444, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\LTC_OCT_2024\LTCMe_TC_Integration\LTCMe_TC_Integration\cs\2506TC_DLL\TcSoaCadStrong.dll</HintPath>
+    <Reference Include="TcSoaCadStrong">
+      <HintPath>..\..\2506TC_DLL\net\net\netstandard2.0\TcSoaCadStrong.dll</HintPath>
     </Reference>
-    <Reference Include="TcSoaClient, Version=14000.0.0.0, Culture=neutral, PublicKeyToken=0edd5b5ddd601444, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\LTC_OCT_2024\LTCMe_TC_Integration\LTCMe_TC_Integration\cs\2506TC_DLL\TcSoaClient.dll</HintPath>
+    <Reference Include="TcSoaClient">
+      <HintPath>..\..\2506TC_DLL\net\net\netstandard2.0\TcSoaClient.dll</HintPath>
     </Reference>
-    <Reference Include="TcSoaCommon, Version=14000.0.0.0, Culture=neutral, PublicKeyToken=0edd5b5ddd601444, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\LTC_OCT_2024\LTCMe_TC_Integration\LTCMe_TC_Integration\cs\2506TC_DLL\TcSoaCommon.dll</HintPath>
+    <Reference Include="TcSoaCommon">
+      <HintPath>..\..\2506TC_DLL\net\net\netstandard2.0\TcSoaCommon.dll</HintPath>
     </Reference>
-    <Reference Include="TcSoaCoreStrong, Version=14000.0.0.0, Culture=neutral, PublicKeyToken=0edd5b5ddd601444, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\LTC_OCT_2024\LTCMe_TC_Integration\LTCMe_TC_Integration\cs\2506TC_DLL\TcSoaCoreStrong.dll</HintPath>
+    <Reference Include="TcSoaCoreStrong">
+      <HintPath>..\..\2506TC_DLL\net\net\netstandard2.0\TcSoaCoreStrong.dll</HintPath>
     </Reference>
-    <Reference Include="TcSoaFMS, Version=14000.0.0.0, Culture=neutral, PublicKeyToken=0edd5b5ddd601444, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Users\USER\wntx64\soa_client\net\net48\TcSoaFMS.dll</HintPath>
+    <Reference Include="TcSoaFMS">
+      <HintPath>..\..\2506TC_DLL\net\net\net48\TcSoaFMS.dll</HintPath>
     </Reference>
     <Reference Include="TcSoaFMS64, Version=14000.0.0.0, Culture=neutral, PublicKeyToken=0edd5b5ddd601444, processorArchitecture=AMD64">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>lib_tc14\TcSoaFMS64.dll</HintPath>
     </Reference>
-    <Reference Include="TcSoaQueryStrong, Version=14000.0.0.0, Culture=neutral, PublicKeyToken=0edd5b5ddd601444, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\LTC_OCT_2024\LTCMe_TC_Integration\LTCMe_TC_Integration\cs\2506TC_DLL\TcSoaQueryStrong.dll</HintPath>
+    <Reference Include="TcSoaQueryStrong">
+      <HintPath>..\..\2506TC_DLL\net\net\netstandard2.0\TcSoaQueryStrong.dll</HintPath>
     </Reference>
-    <Reference Include="TcSoaStrongModel, Version=14000.0.0.0, Culture=neutral, PublicKeyToken=0edd5b5ddd601444, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\LTC_OCT_2024\LTCMe_TC_Integration\LTCMe_TC_Integration\cs\2506TC_DLL\TcSoaStrongModel.dll</HintPath>
+    <Reference Include="TcSoaStrongModel">
+      <HintPath>..\..\2506TC_DLL\net\net\netstandard2.0\TcSoaStrongModel.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

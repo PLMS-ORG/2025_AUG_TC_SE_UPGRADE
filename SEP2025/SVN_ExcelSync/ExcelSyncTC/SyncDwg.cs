@@ -65,6 +65,7 @@ namespace ExcelSyncTC
             String logFilePath = System.IO.Path.Combine(LogStageDir, System.IO.Path.GetFileNameWithoutExtension(xlFilePath) + "_" + "SyncTE" + ".txt");
             String topLineAssembly = Path.ChangeExtension(xlFilePath, ".asm");
 
+            Utlity.Log("SyncTE 2D Started", logFilePath);
             Utlity.Log("Connecting to Solid Edge..", logFilePath, "INFO");
             SE_SESSION.InitializeSolidEdgeSession(logFilePath);
 
@@ -243,9 +244,16 @@ namespace ExcelSyncTC
             {
                 Utlity.Log("Uploading files back to Teamcenter.... " + ex.Message, logFilePath);
                 e.Result = "NOK";
-                return;
             }
-            e.Result = "OK";
+
+            String startString = "SyncTE 2D Started";
+            bool parseFlag = Utlity.parseLog(logFilePath, startString);
+            if (parseFlag == false) // Something went wrong
+            {
+                e.Result = "NOK";
+            }
+            else
+                e.Result = "OK";
 
         }
 
