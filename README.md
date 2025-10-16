@@ -1,0 +1,5 @@
+LTC UPGRADE PROJECT
+
+Solid Edge VERSION = 2025
+Teamcenter VERSSION = 2506
+Excel Vesion = 365
